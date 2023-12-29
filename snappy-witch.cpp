@@ -35,6 +35,8 @@ int main()
 
 		witch.render();		
 
+		DrawFPS(10, 10);
+
 		EndDrawing();
 	}
 
