@@ -9,10 +9,10 @@ class Witch
 		void render();
 		void unloadAssets();
 	private:
-		Texture2D texture{};
+		Texture texture{};
 		Vector2 position{ 100, 0 };
 		int velocity{};		
-		int gravity = 1500;
-		int jumpForce = -500;
+		int gravity{ 1500 };
+		int jumpForce{ -500 };
 		int windowHeight{};
 };
