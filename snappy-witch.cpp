@@ -1,5 +1,6 @@
 #include "raylib.h"
 #include "Witch.h"
+#include "BackgroundLayer.h"
 
 int main()
 {
@@ -11,20 +12,36 @@ int main()
 
 	Witch witch(windowHeight);
 
+	BackgroundLayer backLayer(LoadTexture("assets/textures/backlayer.png"), 100);
+	BackgroundLayer midLayer(LoadTexture("assets/textures/midlayer.png"), 200);
+	BackgroundLayer frontLayer(LoadTexture("assets/textures/frontlayer.png"), 400);
+
 	while (WindowShouldClose() != true)
 	{
 		float deltaTime{ GetFrameTime() };
 
 		witch.update(deltaTime);
 
+		backLayer.update(deltaTime);
+		midLayer.update(deltaTime);
+		frontLayer.update(deltaTime);
+
 		BeginDrawing();
 		ClearBackground(GRAY);
 
-		witch.render();
+		backLayer.render();
+		midLayer.render();
+		frontLayer.render();
+
+		witch.render();		
 
 		EndDrawing();
 	}
 
 	witch.unloadAssets();
+	backLayer.unloadAssets();
+	midLayer.unloadAssets();
+	frontLayer.unloadAssets();
+
 	CloseWindow();
 }

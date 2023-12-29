@@ -127,10 +127,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BackgroundLayer.cpp" />
     <ClCompile Include="snappy-witch.cpp" />
     <ClCompile Include="Witch.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BackgroundLayer.h" />
     <ClInclude Include="Witch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

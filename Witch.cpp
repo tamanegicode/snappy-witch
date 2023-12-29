@@ -3,7 +3,7 @@
 Witch::Witch(int windowHeight)
 {
 	this->windowHeight = windowHeight;
-	texture = LoadTexture("witch.png");
+	texture = LoadTexture("assets/textures/witch.png");
 	position.y = { static_cast<float>(windowHeight / 2) };	
 }
 
@@ -32,7 +32,6 @@ void Witch::update(float deltaTime)
 void Witch::render()
 {
 	DrawTexture(texture, position.x, position.y, WHITE);
-	//DrawTextureEx(witch, playerPosition, 0.0f, 1.0f, WHITE);
 }
 
 void Witch::unloadAssets()

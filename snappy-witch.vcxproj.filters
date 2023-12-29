@@ -21,9 +21,15 @@
     <ClCompile Include="Witch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BackgroundLayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Witch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BackgroundLayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
