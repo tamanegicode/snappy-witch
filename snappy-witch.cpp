@@ -1,4 +1,5 @@
 #include "raylib.h"
+#include "Witch.h"
 
 int main()
 {
@@ -8,12 +9,22 @@ int main()
 	InitWindow(windowWidth, windowHeight, "Snappy Witch");
 	SetTargetFPS(GetMonitorRefreshRate(GetCurrentMonitor()));
 
+	Witch witch(windowHeight);
+
 	while (WindowShouldClose() != true)
 	{
+		float deltaTime{ GetFrameTime() };
+
+		witch.update(deltaTime);
+
 		BeginDrawing();
-		ClearBackground(WHITE);
+		ClearBackground(GRAY);
+
+		witch.render();
+
 		EndDrawing();
 	}
 
+	witch.unloadAssets();
 	CloseWindow();
 }
