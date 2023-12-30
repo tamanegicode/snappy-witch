@@ -16,24 +16,32 @@ int main()
 	BackgroundLayer midLayer(LoadTexture("assets/textures/midlayer.png"), 200);
 	BackgroundLayer frontLayer(LoadTexture("assets/textures/frontlayer.png"), 400);
 
+	BackgroundLayer* backgroundLayers[]{
+		&backLayer,
+		&midLayer,
+		&frontLayer
+	};
+
 	while (WindowShouldClose() != true)
 	{
 		float deltaTime{ GetFrameTime() };
 
 		witch.update(deltaTime);
 
-		backLayer.update(deltaTime);
-		midLayer.update(deltaTime);
-		frontLayer.update(deltaTime);
+		for (auto layer : backgroundLayers)
+		{
+			layer->update(deltaTime);
+		}
 
 		BeginDrawing();
 		ClearBackground(GRAY);
 
-		backLayer.render();
-		midLayer.render();
-		frontLayer.render();
+		for (auto layer : backgroundLayers)
+		{
+			layer->render();
+		}
 
-		witch.render();		
+		witch.render();
 
 		DrawFPS(10, 10);
 
