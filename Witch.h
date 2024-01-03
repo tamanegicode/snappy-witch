@@ -8,6 +8,7 @@ class Witch
 		void update(float deltaTime);
 		void render();
 		void unloadAssets();
+		Rectangle getCollisionRectangle();
 	private:
 		Texture texture{};
 		Rectangle collisionRectangle{};

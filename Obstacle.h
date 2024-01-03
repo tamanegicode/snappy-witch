@@ -8,6 +8,8 @@ public:
 	void update(float deltaTime);
 	void render();
 	void unloadAssets();
+	Rectangle getCollisionRectangleTopObstacle();
+	Rectangle getCollisionRectangleBottomObstacle();
 private:
 	Texture texture{};
 	Rectangle collisionRectangleTopObstacle{};

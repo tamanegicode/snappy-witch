@@ -17,6 +17,16 @@ Obstacle::Obstacle(Texture texture, int startingPosition, int windowWidth)
 	collisionRectangleBottomObstacle = { positionBottomObstacle.x, positionBottomObstacle.y, static_cast<float>(texture.width), static_cast<float>(texture.height) };
 }
 
+Rectangle Obstacle::getCollisionRectangleTopObstacle()
+{
+	return collisionRectangleTopObstacle;
+}
+
+Rectangle Obstacle::getCollisionRectangleBottomObstacle()
+{
+	return collisionRectangleBottomObstacle;
+}
+
 void Obstacle::update(float deltaTime)
 {
 	positionTopObstacle.x -= scrollSpeed * deltaTime;	

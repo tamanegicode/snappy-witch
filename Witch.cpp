@@ -9,6 +9,11 @@ Witch::Witch(int windowHeight)
 	collisionRectangle = { position.x, position.y, static_cast<float>(texture.width), static_cast<float>(texture.height) };
 }
 
+Rectangle Witch::getCollisionRectangle()
+{
+	return collisionRectangle;
+}
+
 void Witch::update(float deltaTime)
 {
 	velocity += gravity * deltaTime;

@@ -30,9 +30,18 @@ int main()
 	Obstacle obstacle(LoadTexture("assets/textures/obstacle.png"), windowWidth, windowWidth);
 	Obstacle obstacle2(LoadTexture("assets/textures/obstacle.png"), windowWidth + windowWidth / 2, windowWidth);
 
+	Obstacle* obstacles[]{
+		&obstacle,
+		&obstacle2
+	};
+
+	bool collided{};
+
 	while (WindowShouldClose() != true)
 	{
 		const float deltaTime{ GetFrameTime() };
+
+		collided = false;
 
 		witch.update(deltaTime);
 
@@ -41,8 +50,10 @@ int main()
 			layer->update(deltaTime);
 		}
 
-		obstacle.update(deltaTime);
-		obstacle2.update(deltaTime);
+		for (auto obs : obstacles)
+		{
+			obs->update(deltaTime);
+		}
 
 		BeginDrawing();
 		ClearBackground(GRAY);
@@ -54,8 +65,31 @@ int main()
 
 		witch.render();
 
-		obstacle.render();
-		obstacle2.render();
+		for (auto obs : obstacles)
+		{
+			obs->render();
+		}
+
+		for (auto obs : obstacles)
+		{
+			if (CheckCollisionRecs(witch.getCollisionRectangle(), obs->getCollisionRectangleTopObstacle()))
+			{
+				collided = true;
+			}
+			else if (CheckCollisionRecs(witch.getCollisionRectangle(), obs->getCollisionRectangleBottomObstacle()))
+			{
+				collided = true;
+			}
+		}
+
+		if (collided)
+		{
+			char hitText[] = "I'M HIT";
+			int hitTextSize = 100;
+			int hitTextWidth = MeasureText(hitText, hitTextSize);
+
+			DrawText(hitText, windowWidth / 2 - hitTextWidth / 2, windowHeight / 2, hitTextSize, BLACK);
+		}
 
 		DrawFPS(10, 10);
 
@@ -69,8 +103,10 @@ int main()
 		layer->unloadAssets();
 	}
 
-	obstacle.unloadAssets();
-	obstacle2.unloadAssets();
+	for (auto obs : obstacles)
+	{
+		obs->unloadAssets();
+	}
 
 	CloseWindow();
 }
