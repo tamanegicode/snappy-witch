@@ -7,24 +7,28 @@ int main()
 	const int windowWidth{ 1280 };
 	const int windowHeight{ 720 };
 
-	InitWindow(windowWidth, windowHeight, "Snappy Witch");
+	InitWindow(windowWidth, windowHeight, "Snappy Witch");	
 	SetTargetFPS(GetMonitorRefreshRate(GetCurrentMonitor()));
 
 	Witch witch(windowHeight);
 
-	BackgroundLayer backLayer(LoadTexture("assets/textures/backlayer.png"), 100);
-	BackgroundLayer midLayer(LoadTexture("assets/textures/midlayer.png"), 200);
-	BackgroundLayer frontLayer(LoadTexture("assets/textures/frontlayer.png"), 400);
+	BackgroundLayer backLayer(LoadTexture("assets/textures/backlayer.png"), 100, windowWidth, windowHeight);
+	BackgroundLayer midLayer(LoadTexture("assets/textures/midlayer.png"), 200, windowWidth, windowHeight);
+	BackgroundLayer frontLayer(LoadTexture("assets/textures/frontlayer.png"), 300, windowWidth, windowHeight);
+	BackgroundLayer groundLayer(LoadTexture("assets/textures/ground.png"), 400, windowWidth, windowHeight);
+	BackgroundLayer bushLayer(LoadTexture("assets/textures/bush.png"), 400, windowWidth, windowHeight, 24);
 
 	BackgroundLayer* backgroundLayers[]{
 		&backLayer,
 		&midLayer,
-		&frontLayer
+		&frontLayer,
+		&bushLayer,
+		&groundLayer
 	};
 
 	while (WindowShouldClose() != true)
 	{
-		float deltaTime{ GetFrameTime() };
+		const float deltaTime{ GetFrameTime() };
 
 		witch.update(deltaTime);
 
@@ -49,9 +53,11 @@ int main()
 	}
 
 	witch.unloadAssets();
-	backLayer.unloadAssets();
-	midLayer.unloadAssets();
-	frontLayer.unloadAssets();
+
+	for (auto layer : backgroundLayers)
+	{
+		layer->unloadAssets();
+	}
 
 	CloseWindow();
 }
