@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include "Witch.h"
 #include "BackgroundLayer.h"
+#include "Obstacle.h"
 
 int main()
 {
@@ -26,6 +27,9 @@ int main()
 		&groundLayer
 	};
 
+	Obstacle obstacle(LoadTexture("assets/textures/obstacle.png"), windowWidth, windowWidth);
+	Obstacle obstacle2(LoadTexture("assets/textures/obstacle.png"), windowWidth + windowWidth / 2, windowWidth);
+
 	while (WindowShouldClose() != true)
 	{
 		const float deltaTime{ GetFrameTime() };
@@ -37,6 +41,9 @@ int main()
 			layer->update(deltaTime);
 		}
 
+		obstacle.update(deltaTime);
+		obstacle2.update(deltaTime);
+
 		BeginDrawing();
 		ClearBackground(GRAY);
 
@@ -46,6 +53,9 @@ int main()
 		}
 
 		witch.render();
+
+		obstacle.render();
+		obstacle2.render();
 
 		DrawFPS(10, 10);
 
@@ -58,6 +68,9 @@ int main()
 	{
 		layer->unloadAssets();
 	}
+
+	obstacle.unloadAssets();
+	obstacle2.unloadAssets();
 
 	CloseWindow();
 }
