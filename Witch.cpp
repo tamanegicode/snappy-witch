@@ -4,7 +4,9 @@ Witch::Witch(int windowHeight)
 {
 	this->windowHeight = windowHeight;
 	texture = LoadTexture("assets/textures/witch.png");
-	position.y = { static_cast<float>(windowHeight / 2) };	
+	position.y = static_cast<float>(windowHeight / 2);
+
+	collisionRectangle = { position.x, position.y, static_cast<float>(texture.width), static_cast<float>(texture.height) };
 }
 
 void Witch::update(float deltaTime)
@@ -27,11 +29,15 @@ void Witch::update(float deltaTime)
 	{
 		position.y = -texture.height / 3;
 	}
+
+	collisionRectangle.x = position.x;
+	collisionRectangle.y = position.y;
 }
 
 void Witch::render()
 {
 	DrawTexture(texture, position.x, position.y, WHITE);
+	DrawRectangleLinesEx(collisionRectangle, 5, RED);
 }
 
 void Witch::unloadAssets()

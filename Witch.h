@@ -10,6 +10,7 @@ class Witch
 		void unloadAssets();
 	private:
 		Texture texture{};
+		Rectangle collisionRectangle{};
 		Vector2 position{ 100, 0 };
 		int velocity{};		
 		int gravity{ 1500 };

@@ -10,7 +10,10 @@ public:
 	void unloadAssets();
 private:
 	Texture texture{};
-	Vector2 position{};
+	Rectangle collisionRectangleTopObstacle{};
+	Rectangle collisionRectangleBottomObstacle{};
+	Vector2 positionTopObstacle{};
+	Vector2 positionBottomObstacle{};
 	int scrollSpeed{500};
 	int heightOffset{};
 	int windowWidth{};
