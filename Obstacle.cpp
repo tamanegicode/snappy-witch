@@ -10,8 +10,8 @@ Obstacle::Obstacle(Texture texture, int startingPosition, int windowWidth)
 	int random = GetRandomValue(-200, 200);
 	heightOffset = random;
 
-	positionTopObstacle.y = -texture.height / 1.5f + heightOffset;
-	positionBottomObstacle.y = texture.height / 1.5f + heightOffset;
+	positionTopObstacle.y = -texture.height / 1.4f + heightOffset;
+	positionBottomObstacle.y = texture.height / 1.4f + heightOffset;
 
 	collisionRectangleTopObstacle = { positionTopObstacle.x, positionTopObstacle.y, static_cast<float>(texture.width), static_cast<float>(texture.height) };
 	collisionRectangleBottomObstacle = { positionBottomObstacle.x, positionBottomObstacle.y, static_cast<float>(texture.width), static_cast<float>(texture.height) };
@@ -38,8 +38,8 @@ void Obstacle::update(float deltaTime)
 		int random = GetRandomValue(-200, 200);
 		heightOffset = random;
 
-		positionTopObstacle.y = -texture.height / 1.5f + heightOffset;
-		positionBottomObstacle.y = texture.height / 1.5f + heightOffset;
+		positionTopObstacle.y = -texture.height / 1.4f + heightOffset;
+		positionBottomObstacle.y = texture.height / 1.4f + heightOffset;
 	}
 
 	positionBottomObstacle.x = positionTopObstacle.x;
