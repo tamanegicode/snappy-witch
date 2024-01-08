@@ -5,24 +5,26 @@
 
 int main()
 {
-	const int windowWidth{ 1280 };
-	const int windowHeight{ 720 };
+	const int windowWidth{ 320 };
+	const int windowHeight{ 180 };
 
-	InitWindow(windowWidth, windowHeight, "Snappy Witch");	
+	InitWindow(windowWidth, windowHeight, "Snappy Witch");
 	SetTargetFPS(GetMonitorRefreshRate(GetCurrentMonitor()));
 
 	Witch witch(windowHeight, 0.6f);
 
-	BackgroundLayer backLayer(LoadTexture("assets/textures/backlayer.png"), 100, windowWidth, windowHeight);
-	BackgroundLayer midLayer(LoadTexture("assets/textures/midlayer.png"), 200, windowWidth, windowHeight);
-	BackgroundLayer frontLayer(LoadTexture("assets/textures/frontlayer.png"), 300, windowWidth, windowHeight);
-	BackgroundLayer groundLayer(LoadTexture("assets/textures/ground.png"), 400, windowWidth, windowHeight);
-	BackgroundLayer bushLayer(LoadTexture("assets/textures/bush.png"), 400, windowWidth, windowHeight, 24);
+	BackgroundLayer skyLayer(LoadTexture("assets/textures/background.png"), 0, windowWidth, windowHeight);
+	BackgroundLayer cloudLayer(LoadTexture("assets/textures/clouds.png"), 2, windowWidth, windowHeight);
+	BackgroundLayer trees1Layer(LoadTexture("assets/textures/trees1.png"), 25, windowWidth, windowHeight, 72);
+	BackgroundLayer trees2Layer(LoadTexture("assets/textures/trees2.png"), 50, windowWidth, windowHeight, 48);
+	BackgroundLayer bushLayer(LoadTexture("assets/textures/bush.png"), 100, windowWidth, windowHeight, 26);
+	BackgroundLayer groundLayer(LoadTexture("assets/textures/ground.png"), 100, windowWidth, windowHeight);
 
 	BackgroundLayer* backgroundLayers[]{
-		&backLayer,
-		&midLayer,
-		&frontLayer,
+		&skyLayer,
+		&cloudLayer,
+		&trees1Layer,
+		&trees2Layer,
 		&bushLayer,
 		&groundLayer
 	};
@@ -55,6 +57,20 @@ int main()
 			obs->update(deltaTime);
 		}
 
+		for (auto obs : obstacles)
+		{
+			if (CheckCollisionRecs(witch.getCollisionRectangle(), obs->getCollisionRectangleTopObstacle()))
+			{
+				collided = true;
+				break;
+			}
+			else if (CheckCollisionRecs(witch.getCollisionRectangle(), obs->getCollisionRectangleBottomObstacle()))
+			{
+				collided = true;
+				break;
+			}
+		}
+
 		BeginDrawing();
 		ClearBackground(GRAY);
 
@@ -70,22 +86,10 @@ int main()
 			obs->render();
 		}
 
-		for (auto obs : obstacles)
-		{
-			if (CheckCollisionRecs(witch.getCollisionRectangle(), obs->getCollisionRectangleTopObstacle()))
-			{
-				collided = true;
-			}
-			else if (CheckCollisionRecs(witch.getCollisionRectangle(), obs->getCollisionRectangleBottomObstacle()))
-			{
-				collided = true;
-			}
-		}
-
 		if (collided)
 		{
 			char hitText[] = "I'M HIT";
-			int hitTextSize = 100;
+			int hitTextSize = 50;
 			int hitTextWidth = MeasureText(hitText, hitTextSize);
 
 			DrawText(hitText, windowWidth / 2 - hitTextWidth / 2, windowHeight / 2, hitTextSize, BLACK);

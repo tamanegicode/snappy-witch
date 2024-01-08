@@ -15,9 +15,9 @@ class Witch
 		float collisionRectangleScale{ 1.0f };
 		float colRecXOffset{ 1.0f };
 		float colRecYOffset{ 1.0f };
-		Vector2 position{ 100, 0 };
+		Vector2 position{ 10, 0 };
 		int velocity{};		
-		int gravity{ 1500 };
-		int jumpForce{ -500 };
+		int gravity{ 900 };
+		int jumpForce{ -200 };
 		int windowHeight{};
 };

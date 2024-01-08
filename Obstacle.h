@@ -16,7 +16,7 @@ private:
 	Rectangle collisionRectangleBottomObstacle{};
 	Vector2 positionTopObstacle{};
 	Vector2 positionBottomObstacle{};
-	int scrollSpeed{500};
+	int scrollSpeed{100};
 	int heightOffset{};
 	int windowWidth{};
 };
