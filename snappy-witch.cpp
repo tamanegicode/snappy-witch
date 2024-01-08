@@ -11,7 +11,7 @@ int main()
 	InitWindow(windowWidth, windowHeight, "Snappy Witch");	
 	SetTargetFPS(GetMonitorRefreshRate(GetCurrentMonitor()));
 
-	Witch witch(windowHeight);
+	Witch witch(windowHeight, 0.6f);
 
 	BackgroundLayer backLayer(LoadTexture("assets/textures/backlayer.png"), 100, windowWidth, windowHeight);
 	BackgroundLayer midLayer(LoadTexture("assets/textures/midlayer.png"), 200, windowWidth, windowHeight);

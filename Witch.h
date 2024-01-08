@@ -4,7 +4,7 @@
 class Witch
 {
 	public:
-		Witch(int windowHeight);
+		Witch(int windowHeight, float collisionRectangleScale = 1.0f);
 		void update(float deltaTime);
 		void render();
 		void unloadAssets();
@@ -12,6 +12,9 @@ class Witch
 	private:
 		Texture texture{};
 		Rectangle collisionRectangle{};
+		float collisionRectangleScale{ 1.0f };
+		float colRecXOffset{ 1.0f };
+		float colRecYOffset{ 1.0f };
 		Vector2 position{ 100, 0 };
 		int velocity{};		
 		int gravity{ 1500 };
