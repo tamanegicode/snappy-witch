@@ -29,8 +29,10 @@ int main()
 		&groundLayer
 	};
 
-	Obstacle obstacle(LoadTexture("assets/textures/obstacle.png"), windowWidth, windowWidth);
-	Obstacle obstacle2(LoadTexture("assets/textures/obstacle.png"), windowWidth + windowWidth / 2, windowWidth);
+	Texture obstacleTexture = LoadTexture("assets/textures/obstacle.png");
+
+	Obstacle obstacle(obstacleTexture, windowWidth, windowWidth);
+	Obstacle obstacle2(obstacleTexture, windowWidth + windowWidth / 2, windowWidth);
 
 	Obstacle* obstacles[]{
 		&obstacle,
@@ -107,10 +109,7 @@ int main()
 		layer->unloadAssets();
 	}
 
-	for (auto obs : obstacles)
-	{
-		obs->unloadAssets();
-	}
+	UnloadTexture(obstacleTexture);
 
 	CloseWindow();
 }
