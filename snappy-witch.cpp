@@ -31,8 +31,8 @@ int main()
 
 	Texture obstacleTexture = LoadTexture("assets/textures/obstacle.png");
 
-	Obstacle obstacle(obstacleTexture, windowWidth, windowWidth);
-	Obstacle obstacle2(obstacleTexture, windowWidth + windowWidth / 2, windowWidth);
+	Obstacle obstacle(obstacleTexture, windowWidth, windowWidth, windowHeight);
+	Obstacle obstacle2(obstacleTexture, windowWidth + windowWidth / 2, windowWidth, windowHeight);
 
 	Obstacle* obstacles[]{
 		&obstacle,

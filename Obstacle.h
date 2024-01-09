@@ -4,7 +4,7 @@
 class Obstacle
 {
 public:
-	Obstacle(Texture texture, int startingPosition, int windowWidth);
+	Obstacle(Texture texture, int startingPosition, int windowWidth, int windowHeight);
 	void update(float deltaTime);
 	void render();
 	void unloadAssets();
@@ -16,7 +16,9 @@ private:
 	Rectangle collisionRectangleBottomObstacle{};
 	Vector2 positionTopObstacle{};
 	Vector2 positionBottomObstacle{};
-	int scrollSpeed{100};
+	int scrollSpeed{ 100 };
 	int heightOffset{};
+	int gapBetweenObstacles{ 90 };
 	int windowWidth{};
+	int windowHeight{};
 };

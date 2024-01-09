@@ -1,17 +1,17 @@
 #include "Obstacle.h"
 
-Obstacle::Obstacle(Texture texture, int startingPosition, int windowWidth)
+Obstacle::Obstacle(Texture texture, int startingPosition, int windowWidth, int windowHeight)
 {
 	this->texture = texture;
 	this->windowWidth = windowWidth;
+	this->windowHeight = windowHeight;
 	positionTopObstacle.x = startingPosition;
 	positionBottomObstacle.x = startingPosition;
 
-	int random = GetRandomValue(-50, 50);
-	heightOffset = random;
+	heightOffset = GetRandomValue(0, windowHeight - texture.height*2 - gapBetweenObstacles);
 
-	positionTopObstacle.y = -texture.height / 1.25f + heightOffset;
-	positionBottomObstacle.y = texture.height / 1.25f + heightOffset;
+	positionTopObstacle.y = heightOffset;
+	positionBottomObstacle.y = positionTopObstacle.y + texture.height + gapBetweenObstacles;
 
 	collisionRectangleTopObstacle = { positionTopObstacle.x, positionTopObstacle.y, static_cast<float>(texture.width), static_cast<float>(texture.height) };
 	collisionRectangleBottomObstacle = { positionBottomObstacle.x, positionBottomObstacle.y, static_cast<float>(texture.width), static_cast<float>(texture.height) };
@@ -35,11 +35,10 @@ void Obstacle::update(float deltaTime)
 	{
 		positionTopObstacle.x = windowWidth;
 
-		int random = GetRandomValue(-50, 50);
-		heightOffset = random;
+		heightOffset = GetRandomValue(0, windowHeight - texture.height * 2 - gapBetweenObstacles);
 
-		positionTopObstacle.y = -texture.height / 1.25f + heightOffset;
-		positionBottomObstacle.y = texture.height / 1.25f + heightOffset;
+		positionTopObstacle.y = heightOffset;
+		positionBottomObstacle.y = positionTopObstacle.y + texture.height + gapBetweenObstacles;
 	}
 
 	positionBottomObstacle.x = positionTopObstacle.x;
@@ -53,11 +52,11 @@ void Obstacle::update(float deltaTime)
 
 void Obstacle::render()
 {
-	DrawTexture(texture, static_cast<int>(positionTopObstacle.x), positionTopObstacle.y, WHITE);
+	DrawTextureRec(texture, Rectangle{ 0, 0, static_cast<float>(texture.width), static_cast<float>(-texture.height) }, Vector2{ positionTopObstacle.x, positionTopObstacle.y }, WHITE);
 	DrawTexture(texture, static_cast<int>(positionBottomObstacle.x), positionBottomObstacle.y, WHITE);
 
-	DrawRectangleLinesEx(collisionRectangleTopObstacle, 5, GREEN);
-	DrawRectangleLinesEx(collisionRectangleBottomObstacle, 5, GREEN);
+	DrawRectangleLinesEx(collisionRectangleTopObstacle, 3, GREEN);
+	DrawRectangleLinesEx(collisionRectangleBottomObstacle, 3, GREEN);
 }
 
 void Obstacle::unloadAssets()
