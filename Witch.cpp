@@ -1,11 +1,11 @@
 #include "Witch.h"
 
-Witch::Witch(int windowHeight, float collisionRectangleScale)
+Witch::Witch(int canvasHeight, float collisionRectangleScale)
 {
-	this->windowHeight = windowHeight;
+	this->canvasHeight = canvasHeight;
 	this->collisionRectangle = collisionRectangle;
 	texture = LoadTexture("assets/textures/witch.png");
-	position.y = static_cast<float>(windowHeight / 2);
+	position.y = static_cast<float>(canvasHeight / 2);
 
 	float collisionRectangleWidth = static_cast<float>(texture.width) * collisionRectangleScale;
 	float collisionRectangleHeight = static_cast<float>(texture.height) * collisionRectangleScale;
@@ -35,9 +35,9 @@ void Witch::update(float deltaTime)
 
 	position.y += velocity * deltaTime;	
 
-	if (position.y > windowHeight - collisionRectangle.height - colRecYOffset)
+	if (position.y > canvasHeight - collisionRectangle.height - colRecYOffset)
 	{
-		position.y = windowHeight - collisionRectangle.height - colRecYOffset;
+		position.y = canvasHeight - collisionRectangle.height - colRecYOffset;
 	}
 
 	if (position.y < -colRecYOffset)

@@ -5,20 +5,25 @@
 
 int main()
 {
-	const int windowWidth{ 320 };
-	const int windowHeight{ 180 };
+	const int canvasWidth{ 320 };
+	const int canvasHeight{ 180 };
+
+	const int windowWidth{ canvasWidth * 4 };
+	const int windowHeight{ canvasHeight * 4 };
 
 	InitWindow(windowWidth, windowHeight, "Snappy Witch");
 	SetTargetFPS(GetMonitorRefreshRate(GetCurrentMonitor()));
 
-	Witch witch(windowHeight, 0.6f);
+	RenderTexture renderTexture = LoadRenderTexture(canvasWidth, canvasHeight);
 
-	BackgroundLayer skyLayer(LoadTexture("assets/textures/background.png"), 0, windowWidth, windowHeight);
-	BackgroundLayer cloudLayer(LoadTexture("assets/textures/clouds.png"), 2, windowWidth, windowHeight);
-	BackgroundLayer trees1Layer(LoadTexture("assets/textures/trees1.png"), 25, windowWidth, windowHeight, 72);
-	BackgroundLayer trees2Layer(LoadTexture("assets/textures/trees2.png"), 50, windowWidth, windowHeight, 48);
-	BackgroundLayer bushLayer(LoadTexture("assets/textures/bush.png"), 100, windowWidth, windowHeight, 26);
-	BackgroundLayer groundLayer(LoadTexture("assets/textures/ground.png"), 100, windowWidth, windowHeight);
+	Witch witch(canvasHeight, 0.6f);
+
+	BackgroundLayer skyLayer(LoadTexture("assets/textures/background.png"), 0, canvasWidth, canvasHeight);
+	BackgroundLayer cloudLayer(LoadTexture("assets/textures/clouds.png"), 2, canvasWidth, canvasHeight);
+	BackgroundLayer trees1Layer(LoadTexture("assets/textures/trees1.png"), 25, canvasWidth, canvasHeight, 72);
+	BackgroundLayer trees2Layer(LoadTexture("assets/textures/trees2.png"), 50, canvasWidth, canvasHeight, 48);
+	BackgroundLayer bushLayer(LoadTexture("assets/textures/bush.png"), 100, canvasWidth, canvasHeight, 26);
+	BackgroundLayer groundLayer(LoadTexture("assets/textures/ground.png"), 100, canvasWidth, canvasHeight);
 
 	BackgroundLayer* backgroundLayers[]{
 		&skyLayer,
@@ -31,8 +36,8 @@ int main()
 
 	Texture obstacleTexture = LoadTexture("assets/textures/obstacle.png");
 
-	Obstacle obstacle(obstacleTexture, windowWidth, windowWidth, windowHeight);
-	Obstacle obstacle2(obstacleTexture, windowWidth + windowWidth / 2, windowWidth, windowHeight);
+	Obstacle obstacle(obstacleTexture, canvasWidth, canvasWidth, canvasHeight);
+	Obstacle obstacle2(obstacleTexture, canvasWidth + canvasWidth / 2, canvasWidth, canvasHeight);
 
 	Obstacle* obstacles[]{
 		&obstacle,
@@ -73,7 +78,7 @@ int main()
 			}
 		}
 
-		BeginDrawing();
+		BeginTextureMode(renderTexture);
 		ClearBackground(GRAY);
 
 		for (auto layer : backgroundLayers)
@@ -94,11 +99,15 @@ int main()
 			int hitTextSize = 50;
 			int hitTextWidth = MeasureText(hitText, hitTextSize);
 
-			DrawText(hitText, windowWidth / 2 - hitTextWidth / 2, windowHeight / 2, hitTextSize, BLACK);
+			DrawText(hitText, canvasWidth / 2 - hitTextWidth / 2, canvasHeight / 2, hitTextSize, BLACK);
 		}
 
 		DrawFPS(10, 10);
 
+		EndTextureMode();
+
+		BeginDrawing();
+		DrawTexturePro(renderTexture.texture, Rectangle{ 0, 0, canvasWidth, -canvasHeight }, Rectangle{ 0, 0, windowWidth, windowHeight }, Vector2{ 0, 0 }, 0.0f, WHITE);
 		EndDrawing();
 	}
 
@@ -110,6 +119,8 @@ int main()
 	}
 
 	UnloadTexture(obstacleTexture);
+
+	UnloadRenderTexture(renderTexture);
 
 	CloseWindow();
 }

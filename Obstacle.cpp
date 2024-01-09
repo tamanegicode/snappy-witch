@@ -1,14 +1,14 @@
 #include "Obstacle.h"
 
-Obstacle::Obstacle(Texture texture, int startingPosition, int windowWidth, int windowHeight)
+Obstacle::Obstacle(Texture texture, int startingPosition, int canvasWidth, int canvasHeight)
 {
 	this->texture = texture;
-	this->windowWidth = windowWidth;
-	this->windowHeight = windowHeight;
+	this->canvasWidth = canvasWidth;
+	this->canvasHeight = canvasHeight;
 	positionTopObstacle.x = startingPosition;
 	positionBottomObstacle.x = startingPosition;
 
-	heightOffset = GetRandomValue(0, windowHeight - texture.height*2 - gapBetweenObstacles);
+	heightOffset = GetRandomValue(0, canvasHeight - texture.height*2 - gapBetweenObstacles);
 
 	positionTopObstacle.y = heightOffset;
 	positionBottomObstacle.y = positionTopObstacle.y + texture.height + gapBetweenObstacles;
@@ -33,9 +33,9 @@ void Obstacle::update(float deltaTime)
 
 	if (static_cast<int>(positionTopObstacle.x) <= -texture.width)
 	{
-		positionTopObstacle.x = windowWidth;
+		positionTopObstacle.x = canvasWidth;
 
-		heightOffset = GetRandomValue(0, windowHeight - texture.height * 2 - gapBetweenObstacles);
+		heightOffset = GetRandomValue(0, canvasHeight - texture.height * 2 - gapBetweenObstacles);
 
 		positionTopObstacle.y = heightOffset;
 		positionBottomObstacle.y = positionTopObstacle.y + texture.height + gapBetweenObstacles;

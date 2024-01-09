@@ -4,7 +4,7 @@
 class BackgroundLayer
 {
 	public:
-		BackgroundLayer(Texture texture, int scrollSpeed, int windowWidth, int windowHeight, int offset = 0);
+		BackgroundLayer(Texture texture, int scrollSpeed, int canvasWidth, int canvasHeight, int offset = 0);
 		void update(float deltaTime);
 		void render();
 		void unloadAssets();
@@ -13,7 +13,7 @@ class BackgroundLayer
 		Vector2 position{};
 		int scrollSpeed{};
 		int numberOfSprites{};
-		int windowWidth{};
-		int windowHeight{};
+		int canvasWidth{};
+		int canvasHeight{};
 		int offset{};
 };

@@ -4,7 +4,7 @@
 class Witch
 {
 	public:
-		Witch(int windowHeight, float collisionRectangleScale = 1.0f);
+		Witch(int canvasHeight, float collisionRectangleScale = 1.0f);
 		void update(float deltaTime);
 		void render();
 		void unloadAssets();
@@ -19,5 +19,5 @@ class Witch
 		int velocity{};		
 		int gravity{ 900 };
 		int jumpForce{ -200 };
-		int windowHeight{};
+		int canvasHeight{};
 };

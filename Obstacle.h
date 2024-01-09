@@ -4,7 +4,7 @@
 class Obstacle
 {
 public:
-	Obstacle(Texture texture, int startingPosition, int windowWidth, int windowHeight);
+	Obstacle(Texture texture, int startingPosition, int canvasWidth, int canvasHeight);
 	void update(float deltaTime);
 	void render();
 	void unloadAssets();
@@ -19,6 +19,6 @@ private:
 	int scrollSpeed{ 100 };
 	int heightOffset{};
 	int gapBetweenObstacles{ 90 };
-	int windowWidth{};
-	int windowHeight{};
+	int canvasWidth{};
+	int canvasHeight{};
 };
