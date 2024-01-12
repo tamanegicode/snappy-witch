@@ -4,14 +4,15 @@ Witch::Witch(int canvasHeight, float collisionRectangleScale)
 {
 	this->canvasHeight = canvasHeight;
 	this->collisionRectangle = collisionRectangle;
-	texture = LoadTexture("assets/textures/witch.png");
+	flyTexture = LoadTexture("assets/textures/witch.png");
+	jumpTexture = LoadTexture("assets/textures/jumpWitch.png");
 	position.y = static_cast<float>(canvasHeight / 2);
 
-	float collisionRectangleWidth = static_cast<float>(texture.width) * collisionRectangleScale;
-	float collisionRectangleHeight = static_cast<float>(texture.height) * collisionRectangleScale;
+	float collisionRectangleWidth = static_cast<float>(flyTexture.width) * collisionRectangleScale;
+	float collisionRectangleHeight = static_cast<float>(flyTexture.height) * collisionRectangleScale;
 
-	colRecXOffset = (texture.width - collisionRectangleWidth) / 2;
-	colRecYOffset = (texture.height - collisionRectangleHeight) / 2;
+	colRecXOffset = (flyTexture.width - collisionRectangleWidth) / 2;
+	colRecYOffset = (flyTexture.height - collisionRectangleHeight) / 2;
 
 	float collisionRectanglePositionX = position.x + colRecXOffset;
 	float collisionRectanglePositionY = position.y + colRecYOffset;
@@ -50,11 +51,16 @@ void Witch::update(float deltaTime)
 
 void Witch::render()
 {
-	DrawTexture(texture, position.x, position.y, WHITE);
+	if(velocity > 0)
+		DrawTexture(flyTexture, position.x, position.y, WHITE);
+	else
+		DrawTexture(jumpTexture, position.x, position.y, WHITE);
+
 	DrawRectangleLinesEx(collisionRectangle, 3, RED);
 }
 
 void Witch::unloadAssets()
 {
-	UnloadTexture(texture);
+	UnloadTexture(flyTexture);
+	UnloadTexture(jumpTexture);
 }

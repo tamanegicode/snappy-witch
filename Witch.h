@@ -10,7 +10,8 @@ class Witch
 		void unloadAssets();
 		Rectangle getCollisionRectangle();
 	private:
-		Texture texture{};
+		Texture flyTexture{};
+		Texture jumpTexture{};
 		Rectangle collisionRectangle{};
 		float collisionRectangleScale{ 1.0f };
 		float colRecXOffset{ 1.0f };
