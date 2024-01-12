@@ -22,7 +22,7 @@ class Witch
 		float colRecYOffset{ 1.0f };
 		Vector2 position{ 10, 0 };
 		int velocity{};		
-		int gravity{ 900 };
-		int jumpForce{ -200 };
+		int gravity{ 400 };
+		int jumpForce{ -190 };
 		int canvasHeight{};
 };
