@@ -86,7 +86,7 @@ int main()
 			layer->render();
 		}
 
-		witch.render();
+		witch.render(deltaTime);
 
 		for (auto obs : obstacles)
 		{

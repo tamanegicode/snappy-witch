@@ -6,11 +6,15 @@ class Witch
 	public:
 		Witch(int canvasHeight, float collisionRectangleScale = 1.0f);
 		void update(float deltaTime);
-		void render();
+		void render(float deltaTime);
 		void unloadAssets();
 		Rectangle getCollisionRectangle();
 	private:
 		Texture flyTexture{};
+		int frameToDraw{ 0 };
+		int frameNumber{ 3 };
+		float frameTime{ 0.2f };
+		float animationTime{ 0.0f };
 		Texture jumpTexture{};
 		Rectangle collisionRectangle{};
 		float collisionRectangleScale{ 1.0f };
