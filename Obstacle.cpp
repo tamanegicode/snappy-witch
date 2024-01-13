@@ -1,6 +1,6 @@
 #include "Obstacle.h"
 
-Obstacle::Obstacle(Texture texture, int startingPosition, int canvasWidth, int canvasHeight)
+Obstacle::Obstacle(Texture texture, int startingPosition, int canvasWidth, int canvasHeight, float collisionRectangleWidthScale, float collisionRectangleHeightScale)
 {
 	this->texture = texture;
 	this->canvasWidth = canvasWidth;
@@ -13,8 +13,18 @@ Obstacle::Obstacle(Texture texture, int startingPosition, int canvasWidth, int c
 	positionTopObstacle.y = heightOffset;
 	positionBottomObstacle.y = positionTopObstacle.y + texture.height + gapBetweenObstacles;
 
-	collisionRectangleTopObstacle = { positionTopObstacle.x, positionTopObstacle.y, static_cast<float>(texture.width), static_cast<float>(texture.height) };
-	collisionRectangleBottomObstacle = { positionBottomObstacle.x, positionBottomObstacle.y, static_cast<float>(texture.width), static_cast<float>(texture.height) };
+	float collisionRectangleWidth = static_cast<float>(texture.width) * collisionRectangleWidthScale;
+	float collisionRectangleHeight = static_cast<float>(texture.height) * collisionRectangleHeightScale;
+
+	colRecXOffset = (texture.width - collisionRectangleWidth) / 2;
+	colRecYOffset = (texture.height - collisionRectangleHeight) / 2;
+
+	float collisionRectanglePositionX = positionTopObstacle.x + colRecXOffset;
+	float collisionRectangleTopObstaclePositionY = positionTopObstacle.y + colRecYOffset;
+	float collisionRectangleBottomObstaclePositionY = positionBottomObstacle.y + colRecYOffset;
+
+	collisionRectangleTopObstacle = { collisionRectanglePositionX, collisionRectangleTopObstaclePositionY, collisionRectangleWidth, collisionRectangleHeight };
+	collisionRectangleBottomObstacle = { collisionRectanglePositionX, collisionRectangleBottomObstaclePositionY, collisionRectangleWidth, collisionRectangleHeight };
 }
 
 Rectangle Obstacle::getCollisionRectangleTopObstacle()
@@ -43,11 +53,11 @@ void Obstacle::update(float deltaTime)
 
 	positionBottomObstacle.x = positionTopObstacle.x;
 
-	collisionRectangleTopObstacle.x = positionTopObstacle.x;
-	collisionRectangleTopObstacle.y = positionTopObstacle.y;
+	collisionRectangleTopObstacle.x = positionTopObstacle.x + colRecXOffset;
+	collisionRectangleTopObstacle.y = positionTopObstacle.y + colRecYOffset;
 
-	collisionRectangleBottomObstacle.x = positionBottomObstacle.x;
-	collisionRectangleBottomObstacle.y = positionBottomObstacle.y;
+	collisionRectangleBottomObstacle.x = positionTopObstacle.x + colRecXOffset;
+	collisionRectangleBottomObstacle.y = positionBottomObstacle.y + colRecYOffset;
 }
 
 float Obstacle::getPositionX()

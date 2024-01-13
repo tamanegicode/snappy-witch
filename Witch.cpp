@@ -1,6 +1,6 @@
 #include "Witch.h"
 
-Witch::Witch(int canvasHeight, float collisionRectangleScale)
+Witch::Witch(int canvasHeight, float collisionRectangleWidthScale, float collisionRectangleHeightScale)
 {
 	this->canvasHeight = canvasHeight;
 	this->collisionRectangle = collisionRectangle;
@@ -8,8 +8,8 @@ Witch::Witch(int canvasHeight, float collisionRectangleScale)
 	jumpTexture = LoadTexture("assets/textures/jumpWitch.png");
 	position.y = static_cast<float>(canvasHeight / 2);
 
-	float collisionRectangleWidth = static_cast<float>(flyTexture.width) / frameNumber * collisionRectangleScale;
-	float collisionRectangleHeight = static_cast<float>(flyTexture.height) * collisionRectangleScale;
+	float collisionRectangleWidth = static_cast<float>(flyTexture.width) / frameNumber * collisionRectangleWidthScale;
+	float collisionRectangleHeight = static_cast<float>(flyTexture.height) * collisionRectangleHeightScale;
 
 	colRecXOffset = (flyTexture.width / frameNumber - collisionRectangleWidth) / 2;
 	colRecYOffset = (flyTexture.height - collisionRectangleHeight) / 2;

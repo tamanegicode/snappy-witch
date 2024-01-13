@@ -4,7 +4,7 @@
 class Witch
 {
 	public:
-		Witch(int canvasHeight, float collisionRectangleScale = 1.0f);
+		Witch(int canvasHeight, float collisionRectangleWidthScale = 1.0f, float collisionRectangleHeightScale = 1.0f);
 		void update(float deltaTime);
 		void render(float deltaTime);
 		void unloadAssets();
@@ -18,7 +18,6 @@ class Witch
 		float animationTime{ 0.0f };
 		Texture jumpTexture{};
 		Rectangle collisionRectangle{};
-		float collisionRectangleScale{ 1.0f };
 		float colRecXOffset{ 1.0f };
 		float colRecYOffset{ 1.0f };
 		Vector2 position{ 10, 0 };

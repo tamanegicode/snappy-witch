@@ -36,7 +36,7 @@ int main()
 
 	RenderTexture renderTexture = LoadRenderTexture(canvasWidth, canvasHeight);
 
-	Witch witch(canvasHeight, 0.6f);
+	Witch witch(canvasHeight, 0.5f, 0.6f);
 
 	BackgroundLayer skyLayer(LoadTexture("assets/textures/background.png"), 0, canvasWidth, canvasHeight);
 	BackgroundLayer cloudLayer(LoadTexture("assets/textures/clouds.png"), 2, canvasWidth, canvasHeight);
@@ -56,8 +56,10 @@ int main()
 
 	Texture obstacleTexture = LoadTexture("assets/textures/obstacle.png");
 
-	Obstacle obstacle(obstacleTexture, canvasWidth, canvasWidth, canvasHeight);
-	Obstacle obstacle2(obstacleTexture, canvasWidth + canvasWidth / 2, canvasWidth, canvasHeight);
+
+
+	Obstacle obstacle(obstacleTexture, canvasWidth, canvasWidth, canvasHeight, 0.8f, 1.0f);
+	Obstacle obstacle2(obstacleTexture, canvasWidth + canvasWidth / 2, canvasWidth, canvasHeight, 0.8f, 1.0f);
 
 	Obstacle* obstacles[]{
 		&obstacle,
