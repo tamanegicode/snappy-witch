@@ -3,6 +3,26 @@
 #include "BackgroundLayer.h"
 #include "Obstacle.h"
 
+int calcNextObstacle(Obstacle* obstacles[], float witchPosition)
+{
+	float nextObstaclePosition{ 9999 };
+	int nextObstacleIndex{ 0 };
+
+	for (int i = 0; i < 2; i++)
+	{
+		if (obstacles[i]->getPositionX() < nextObstaclePosition)
+		{
+			if (obstacles[i]->getPositionX() > witchPosition)
+			{
+				nextObstaclePosition = obstacles[i]->getPositionX();
+				nextObstacleIndex = i;
+			}
+		}
+	}
+
+	return nextObstacleIndex;
+}
+
 int main()
 {
 	const int canvasWidth{ 320 };
@@ -44,7 +64,10 @@ int main()
 		&obstacle2
 	};
 
-	bool collided{};
+	int nextObstacleIndex{ calcNextObstacle(obstacles, witch.getPositionX()) };
+
+	int score{ 0 };
+	bool collided{};	
 
 	while (WindowShouldClose() != true)
 	{
@@ -57,11 +80,18 @@ int main()
 		for (auto layer : backgroundLayers)
 		{
 			layer->update(deltaTime);
-		}
+		}		
 
 		for (auto obs : obstacles)
 		{
 			obs->update(deltaTime);
+		}
+
+		if (obstacles[nextObstacleIndex]->getPositionX() <= witch.getPositionX())
+		{
+			score++;
+
+			nextObstacleIndex = calcNextObstacle(obstacles, witch.getPositionX());
 		}
 
 		for (auto obs : obstacles)
@@ -76,6 +106,11 @@ int main()
 				collided = true;
 				break;
 			}
+		}
+
+		if (collided)
+		{
+			score = 0;
 		}
 
 		BeginTextureMode(renderTexture);
@@ -93,16 +128,9 @@ int main()
 			obs->render();
 		}
 
-		if (collided)
-		{
-			char hitText[] = "I'M HIT";
-			int hitTextSize = 50;
-			int hitTextWidth = MeasureText(hitText, hitTextSize);
+		DrawText(TextFormat("Score: %i", score), 5 , 5, 10, BLACK);
 
-			DrawText(hitText, canvasWidth / 2 - hitTextWidth / 2, canvasHeight / 2, hitTextSize, BLACK);
-		}
-
-		DrawFPS(10, 10);
+		DrawText(TextFormat("%i FPS", GetFPS()), 5, canvasHeight - 10, 10, GREEN);
 
 		EndTextureMode();
 

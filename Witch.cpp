@@ -25,6 +25,11 @@ Rectangle Witch::getCollisionRectangle()
 	return collisionRectangle;
 }
 
+float Witch::getPositionX()
+{
+	return position.x;
+}
+
 void Witch::update(float deltaTime)
 {
 	velocity += gravity * deltaTime;

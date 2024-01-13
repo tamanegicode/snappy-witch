@@ -10,6 +10,7 @@ public:
 	void unloadAssets();
 	Rectangle getCollisionRectangleTopObstacle();
 	Rectangle getCollisionRectangleBottomObstacle();
+	float getPositionX();
 private:
 	Texture texture{};
 	Rectangle collisionRectangleTopObstacle{};

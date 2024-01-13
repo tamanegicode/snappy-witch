@@ -50,6 +50,11 @@ void Obstacle::update(float deltaTime)
 	collisionRectangleBottomObstacle.y = positionBottomObstacle.y;
 }
 
+float Obstacle::getPositionX()
+{
+	return positionTopObstacle.x;
+}
+
 void Obstacle::render()
 {
 	DrawTextureRec(texture, Rectangle{ 0, 0, static_cast<float>(texture.width), static_cast<float>(-texture.height) }, Vector2{ positionTopObstacle.x, positionTopObstacle.y }, WHITE);

@@ -9,6 +9,7 @@ class Witch
 		void render(float deltaTime);
 		void unloadAssets();
 		Rectangle getCollisionRectangle();
+		float getPositionX();
 	private:
 		Texture flyTexture{};
 		int frameToDraw{ 0 };
