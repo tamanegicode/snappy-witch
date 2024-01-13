@@ -6,7 +6,6 @@ Witch::Witch(int canvasHeight, float collisionRectangleWidthScale, float collisi
 	this->collisionRectangle = collisionRectangle;
 	flyTexture = LoadTexture("assets/textures/spritesheetWitch.png");
 	jumpTexture = LoadTexture("assets/textures/jumpWitch.png");
-	position.y = static_cast<float>(canvasHeight / 2);
 
 	float collisionRectangleWidth = static_cast<float>(flyTexture.width) / frameNumber * collisionRectangleWidthScale;
 	float collisionRectangleHeight = static_cast<float>(flyTexture.height) * collisionRectangleHeightScale;

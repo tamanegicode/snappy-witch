@@ -56,8 +56,6 @@ int main()
 
 	Texture obstacleTexture = LoadTexture("assets/textures/obstacle.png");
 
-
-
 	Obstacle obstacle(obstacleTexture, canvasWidth, canvasWidth, canvasHeight, 0.8f, 1.0f);
 	Obstacle obstacle2(obstacleTexture, canvasWidth + canvasWidth / 2, canvasWidth, canvasHeight, 0.8f, 1.0f);
 
