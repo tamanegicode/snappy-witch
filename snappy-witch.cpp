@@ -1,5 +1,6 @@
 #include "raylib.h"
 #include "PlayState.h"
+#include "GameStateManager.h"
 
 int main()
 {
@@ -16,16 +17,18 @@ int main()
 
 	PlayState playState{ canvasWidth, canvasHeight };
 
+	GameStateManager gameStateManager { playState };
+
 	while (WindowShouldClose() != true)
 	{
 		const float deltaTime{ GetFrameTime() };
 
-		playState.update(deltaTime);
+		gameStateManager.update(deltaTime);
 
 		BeginTextureMode(renderTexture);
 		ClearBackground(GRAY);
 
-		playState.render(deltaTime);
+		gameStateManager.render(deltaTime);
 
 		EndTextureMode();
 
@@ -34,7 +37,7 @@ int main()
 		EndDrawing();
 	}
 
-	playState.unloadAssets();
+	gameStateManager.unloadAssets();
 
 	UnloadRenderTexture(renderTexture);
 
