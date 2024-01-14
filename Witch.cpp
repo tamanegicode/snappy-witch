@@ -1,5 +1,7 @@
 #include "Witch.h"
 
+Witch::Witch(){}
+
 Witch::Witch(int canvasHeight, float collisionRectangleWidthScale, float collisionRectangleHeightScale)
 {
 	this->canvasHeight = canvasHeight;

@@ -4,6 +4,7 @@
 class Witch
 {
 	public:
+		Witch();
 		Witch(int canvasHeight, float collisionRectangleWidthScale = 1.0f, float collisionRectangleHeightScale = 1.0f);
 		void update(float deltaTime);
 		void render(float deltaTime);

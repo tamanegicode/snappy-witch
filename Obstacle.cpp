@@ -1,5 +1,7 @@
 #include "Obstacle.h"
 
+Obstacle::Obstacle(){}
+
 Obstacle::Obstacle(Texture texture, int startingPosition, int canvasWidth, int canvasHeight, float collisionRectangleWidthScale, float collisionRectangleHeightScale)
 {
 	this->texture = texture;

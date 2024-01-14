@@ -1,5 +1,7 @@
 #include "BackgroundLayer.h"
 
+BackgroundLayer::BackgroundLayer(){}
+
 BackgroundLayer::BackgroundLayer(Texture texture, int scrollSpeed, int canvasWidth, int canvasHeight, int offset)
 {
 	this->texture = texture;

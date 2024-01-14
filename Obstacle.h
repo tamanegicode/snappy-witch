@@ -4,6 +4,7 @@
 class Obstacle
 {
 public:
+	Obstacle();
 	Obstacle(Texture texture, int startingPosition, int canvasWidth, int canvasHeight, float collisionRectangleWidthScale = 1.0f, float collisionRectangleHeightScale = 1.0f);
 	void update(float deltaTime);
 	void render();
