@@ -67,6 +67,7 @@ int main()
 	int nextObstacleIndex{ calcNextObstacle(obstacles, witch.getPositionX()) };
 
 	int score{ 0 };
+	int maxScore{ 0 };
 	bool collided{};	
 
 	while (WindowShouldClose() != true)
@@ -90,6 +91,8 @@ int main()
 		if (obstacles[nextObstacleIndex]->getPositionX() <= witch.getPositionX())
 		{
 			score++;
+
+			if (score > maxScore) maxScore = score;
 
 			nextObstacleIndex = calcNextObstacle(obstacles, witch.getPositionX());
 		}
@@ -129,6 +132,7 @@ int main()
 		}
 
 		DrawText(TextFormat("Score: %i", score), 5 , 5, 10, BLACK);
+		DrawText(TextFormat("Max Score: %i", maxScore), 5, 20, 1, BLACK);
 
 		DrawText(TextFormat("%i FPS", GetFPS()), 5, canvasHeight - 10, 10, GREEN);
 
