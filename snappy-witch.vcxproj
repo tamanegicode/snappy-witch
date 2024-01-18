@@ -133,6 +133,7 @@
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="snappy-witch.cpp" />
+    <ClCompile Include="TitleScreenState.cpp" />
     <ClCompile Include="Witch.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -141,6 +142,7 @@
     <ClInclude Include="GameStateManager.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="PlayState.h" />
+    <ClInclude Include="TitleScreenState.h" />
     <ClInclude Include="Witch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

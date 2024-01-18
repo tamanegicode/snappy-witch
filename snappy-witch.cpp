@@ -1,5 +1,5 @@
 #include "raylib.h"
-#include "PlayState.h"
+#include "TitleScreenState.h"
 #include "GameStateManager.h"
 
 int main()
@@ -17,7 +17,7 @@ int main()
 
 	GameStateManager gameStateManager;
 
-	gameStateManager.setGameState(std::make_unique<PlayState>(canvasWidth, canvasHeight, gameStateManager));
+	gameStateManager.setGameState(std::make_unique<TitleScreenState>(canvasWidth, canvasHeight, gameStateManager));
 
 	while (WindowShouldClose() != true)
 	{
