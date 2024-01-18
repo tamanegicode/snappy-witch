@@ -1,15 +1,19 @@
 #include "GameStateManager.h"
 
-GameStateManager::GameStateManager(GameState &newState)
+GameStateManager::GameStateManager()
 {
-	gameStates.push(&newState);
 }
 
-void GameStateManager::setGameState(GameState &newState)
+void GameStateManager::setGameState(std::unique_ptr <GameState> newState)
 {
-	gameStates.pop();
-	gameStates.push(&newState);
+	if (!gameStates.empty())
+	{
+		unloadAssets();
+		gameStates.pop();
+	}
+	gameStates.push(std::move(newState));
 }
+
 void GameStateManager::update(float deltaTime)
 {
 	gameStates.top()->update(deltaTime);

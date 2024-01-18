@@ -3,15 +3,19 @@
 #include "Witch.h"
 #include "BackgroundLayer.h"
 #include "Obstacle.h"
+#include "GameStateManager.h"
+#include <stack>
+#include <memory>
 
 class PlayState : public GameState
 {
 public:
-	PlayState(int canvasWidth, int canvasHeight);
+	PlayState(int canvasWidth, int canvasHeight, GameStateManager& gSM);
 	virtual void update(float deltaTime) override;
 	virtual void render(float deltaTime) override;
 	virtual void unloadAssets() override;
 private:
+	GameStateManager& gameStateManager;
 	int canvasWidth{};
 	int canvasHeight{};
 	Witch witch{};

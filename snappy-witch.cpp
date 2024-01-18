@@ -15,9 +15,9 @@ int main()
 
 	RenderTexture renderTexture{ LoadRenderTexture(canvasWidth, canvasHeight) };
 
-	PlayState playState{ canvasWidth, canvasHeight };
+	GameStateManager gameStateManager;
 
-	GameStateManager gameStateManager { playState };
+	gameStateManager.setGameState(std::make_unique<PlayState>(canvasWidth, canvasHeight, gameStateManager));
 
 	while (WindowShouldClose() != true)
 	{

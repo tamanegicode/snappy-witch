@@ -1,6 +1,6 @@
 #include "PlayState.h"
 
-PlayState::PlayState(int canvasWidth, int canvasHeight)
+PlayState::PlayState(int canvasWidth, int canvasHeight, GameStateManager& gSM) : gameStateManager(gSM)
 {
 	this->canvasWidth = canvasWidth;
 	this->canvasHeight = canvasHeight;
@@ -80,7 +80,8 @@ void PlayState::update(float deltaTime)
 
 	if (collided)
 	{
-		score = 0;
+		//score = 0;
+		gameStateManager.setGameState(std::make_unique<PlayState>(canvasWidth, canvasHeight, gameStateManager));
 	}
 }
 
