@@ -1,12 +1,8 @@
 #include "TitleScreenState.h"
 #include "PlayState.h"
 
-TitleScreenState::TitleScreenState(int canvasWidth, int canvasHeight, GameStateManager& gSM) : gameStateManager(gSM)
+TitleScreenState::TitleScreenState(int cW, int cH, GameStateManager& gSM) : canvasWidth(cW), canvasHeight(cH), gameStateManager(gSM)
 {
-	this->canvasWidth = canvasWidth;
-	this->canvasHeight = canvasHeight;
-
-	background = LoadTexture("assets/textures/titleScreen.png");
 }
 
 void TitleScreenState::update(float deltaTime)
