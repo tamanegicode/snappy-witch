@@ -1,25 +1,10 @@
 #include "PlayState.h"
 
-PlayState::PlayState(int canvasWidth, int canvasHeight, GameStateManager& gSM) : gameStateManager(gSM)
+PlayState::PlayState(int cW, int cH, GameStateManager& gSM) : canvasWidth(cW), canvasHeight(cH), gameStateManager(gSM)
 {
-	this->canvasWidth = canvasWidth;
-	this->canvasHeight = canvasHeight;
-
-	witch = { canvasHeight, 0.5f, 0.6f };
-	skyLayer = { LoadTexture("assets/textures/background.png"), 0, canvasWidth, canvasHeight };
-	cloudLayer = { LoadTexture("assets/textures/clouds.png"), 2, canvasWidth, canvasHeight };
-	trees1Layer = { LoadTexture("assets/textures/trees1.png"), 25, canvasWidth, canvasHeight, 72 };
-	trees2Layer = { LoadTexture("assets/textures/trees2.png"), 50, canvasWidth, canvasHeight, 48 };
-	bushLayer = { LoadTexture("assets/textures/bush.png"), 100, canvasWidth, canvasHeight, 26 };
-	groundLayer = { LoadTexture("assets/textures/ground.png"), 100, canvasWidth, canvasHeight };
-
-	obstacleTexture = LoadTexture("assets/textures/obstacle.png");
-
-	obstacle = { obstacleTexture, canvasWidth, canvasWidth, canvasHeight, 0.8f, 1.0f };
-	obstacle2 = { obstacleTexture, canvasWidth + canvasWidth / 2, canvasWidth, canvasHeight, 0.8f, 1.0f };
 }
 
-int PlayState::calcNextObstacle(Obstacle* obstacles[], float witchPosition)
+int PlayState::calcNextObstacle(std::unique_ptr <Obstacle> obstacles[], float witchPosition)
 {
 	float nextObstaclePosition{ 9999 };
 	int nextObstacleIndex{ 0 };
@@ -45,12 +30,12 @@ void PlayState::update(float deltaTime)
 
 	witch.update(deltaTime);
 
-	for (auto layer : backgroundLayers)
+	for (auto &layer : backgroundLayers)
 	{
 		layer->update(deltaTime);
 	}
 
-	for (auto obs : obstacles)
+	for (auto &obs : obstacles)
 	{
 		obs->update(deltaTime);
 	}
@@ -64,7 +49,7 @@ void PlayState::update(float deltaTime)
 		nextObstacleIndex = calcNextObstacle(obstacles, witch.getPositionX());
 	}
 
-	for (auto obs : obstacles)
+	for (auto &obs : obstacles)
 	{
 		if (CheckCollisionRecs(witch.getCollisionRectangle(), obs->getCollisionRectangleTopObstacle()))
 		{
@@ -86,14 +71,14 @@ void PlayState::update(float deltaTime)
 
 void PlayState::render(float deltaTime)
 {
-	for (auto layer : backgroundLayers)
+	for (auto &layer : backgroundLayers)
 	{
 		layer->render();
 	}
 
 	witch.render(deltaTime);
 
-	for (auto obs : obstacles)
+	for (auto &obs : obstacles)
 	{
 		obs->render();
 	}
@@ -108,7 +93,7 @@ void PlayState::unloadAssets()
 {
 	witch.unloadAssets();
 
-	for (auto layer : backgroundLayers)
+	for (auto &layer : backgroundLayers)
 	{
 		layer->unloadAssets();
 	}
