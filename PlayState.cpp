@@ -1,7 +1,7 @@
 #include "PlayState.h"
 
-PlayState::PlayState(int canvasWidth, int canvasHeight, GameStateManager& gameStateManager)
-	: m_CanvasWidth(canvasWidth), m_CanvasHeight(canvasHeight), m_GameStateManager(gameStateManager)
+PlayState::PlayState(int canvasWidth, int canvasHeight, GameStateManager& gameStateManager, int& maxScore)
+	: m_CanvasWidth(canvasWidth), m_CanvasHeight(canvasHeight), m_GameStateManager(gameStateManager), m_MaxScore(maxScore)
 {
 }
 
@@ -45,7 +45,7 @@ void PlayState::update(float deltaTime)
 	{
 		score++;
 
-		if (score > maxScore) maxScore = score;
+		if (score > m_MaxScore) m_MaxScore = score;
 
 		nextObstacleIndex = calcNextObstacle(obstacles, witch.getPositionX());
 	}
@@ -66,7 +66,7 @@ void PlayState::update(float deltaTime)
 
 	if (collided)
 	{
-		m_GameStateManager.setGameState(std::make_unique<PlayState>(m_CanvasWidth, m_CanvasHeight, m_GameStateManager));
+		m_GameStateManager.setGameState(std::make_unique<PlayState>(m_CanvasWidth, m_CanvasHeight, m_GameStateManager, m_MaxScore));
 	}
 }
 
@@ -85,7 +85,7 @@ void PlayState::render(float deltaTime)
 	}
 
 	DrawText(TextFormat("Score: %i", score), 5, 5, 10, BLACK);
-	//DrawText(TextFormat("Max Score: %i", maxScore), 5, 20, 1, BLACK);
+	DrawText(TextFormat("Max Score: %i", m_MaxScore), 5, 20, 1, BLACK);
 
 	DrawText(TextFormat("%i FPS", GetFPS()), 5, m_CanvasHeight - 10, 10, GREEN);
 }

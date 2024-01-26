@@ -17,7 +17,9 @@ int main()
 
 	GameStateManager gameStateManager;
 
-	gameStateManager.setGameState(std::make_unique<TitleScreenState>(canvasWidth, canvasHeight, gameStateManager));
+	int maxScore{ 0 };
+
+	gameStateManager.setGameState(std::make_unique<TitleScreenState>(canvasWidth, canvasHeight, gameStateManager, maxScore));
 
 	while (WindowShouldClose() != true)
 	{

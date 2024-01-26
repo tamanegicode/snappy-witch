@@ -10,7 +10,7 @@
 class PlayState : public GameState
 {
 public:
-	PlayState(int canvasWidth, int canvasHeight, GameStateManager& gameStateManager);
+	PlayState(int canvasWidth, int canvasHeight, GameStateManager& gameStateManager, int& maxScore);
 	virtual void update(float deltaTime) override;
 	virtual void render(float deltaTime) override;
 	virtual void unloadAssets() override;
@@ -41,6 +41,6 @@ private:
 	int nextObstacleIndex{ calcNextObstacle(obstacles, witch.getPositionX()) };
 
 	int score{ 0 };
-	int maxScore{ 0 };
+	int& m_MaxScore;
 	bool collided{};
 };
