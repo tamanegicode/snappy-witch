@@ -15,5 +15,5 @@ private:
 	Texture background{ LoadTexture("assets/textures/titleScreen.png") };
 	int m_CanvasWidth{};
 	int m_CanvasHeight{};
-	int& m_maxScore;
+	int& m_MaxScore;
 };
