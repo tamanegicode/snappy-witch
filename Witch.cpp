@@ -1,14 +1,8 @@
 #include "Witch.h"
 
-Witch::Witch(){}
-
 Witch::Witch(int canvasHeight, float collisionRectangleWidthScale, float collisionRectangleHeightScale)
+	: m_CanvasHeight(canvasHeight)
 {
-	this->canvasHeight = canvasHeight;
-	this->collisionRectangle = collisionRectangle;
-	flyTexture = LoadTexture("assets/textures/spritesheetWitch.png");
-	jumpTexture = LoadTexture("assets/textures/jumpWitch.png");
-
 	float collisionRectangleWidth = static_cast<float>(flyTexture.width) / frameNumber * collisionRectangleWidthScale;
 	float collisionRectangleHeight = static_cast<float>(flyTexture.height) * collisionRectangleHeightScale;
 
@@ -18,7 +12,10 @@ Witch::Witch(int canvasHeight, float collisionRectangleWidthScale, float collisi
 	float collisionRectanglePositionX = position.x + colRecXOffset;
 	float collisionRectanglePositionY = position.y + colRecYOffset;
 
-	collisionRectangle = { collisionRectanglePositionX , collisionRectanglePositionY, collisionRectangleWidth, collisionRectangleHeight };
+	collisionRectangle.x = collisionRectanglePositionX;
+	collisionRectangle.y = collisionRectanglePositionY;
+	collisionRectangle.width = collisionRectangleWidth;
+	collisionRectangle.height = collisionRectangleHeight;
 }
 
 Rectangle Witch::getCollisionRectangle()
@@ -42,9 +39,9 @@ void Witch::update(float deltaTime)
 
 	position.y += velocity * deltaTime;	
 
-	if (position.y > canvasHeight - collisionRectangle.height - colRecYOffset)
+	if (position.y > m_CanvasHeight - collisionRectangle.height - colRecYOffset)
 	{
-		position.y = canvasHeight - collisionRectangle.height - colRecYOffset;
+		position.y = m_CanvasHeight - collisionRectangle.height - colRecYOffset;
 	}
 
 	if (position.y < -colRecYOffset)

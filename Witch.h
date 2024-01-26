@@ -4,7 +4,6 @@
 class Witch
 {
 	public:
-		Witch();
 		Witch(int canvasHeight, float collisionRectangleWidthScale = 1.0f, float collisionRectangleHeightScale = 1.0f);
 		void update(float deltaTime);
 		void render(float deltaTime);
@@ -12,12 +11,12 @@ class Witch
 		Rectangle getCollisionRectangle();
 		float getPositionX();
 	private:
-		Texture flyTexture{};
+		Texture flyTexture{ LoadTexture("assets/textures/spritesheetWitch.png") };
 		int frameToDraw{ 0 };
 		int frameNumber{ 3 };
 		float frameTime{ 0.2f };
 		float animationTime{ 0.0f };
-		Texture jumpTexture{};
+		Texture jumpTexture{ LoadTexture("assets/textures/jumpWitch.png") };
 		Rectangle collisionRectangle{};
 		float colRecXOffset{ 1.0f };
 		float colRecYOffset{ 1.0f };
@@ -25,5 +24,5 @@ class Witch
 		int velocity{};		
 		int gravity{ 400 };
 		int jumpForce{ -190 };
-		int canvasHeight{};
+		int m_CanvasHeight{};
 };
