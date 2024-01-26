@@ -4,8 +4,7 @@
 class Obstacle
 {
 public:
-	Obstacle();
-	Obstacle(Texture texture, int startingPosition, int canvasWidth, int canvasHeight, float collisionRectangleWidthScale = 1.0f, float collisionRectangleHeightScale = 1.0f);
+	Obstacle(Texture& texture, int startingPosition, int m_CanvasWidth, int m_CanvasHeight, float collisionRectangleWidthScale = 1.0f, float collisionRectangleHeightScale = 1.0f);
 	void update(float deltaTime);
 	void render();
 	void unloadAssets();
@@ -13,7 +12,7 @@ public:
 	Rectangle getCollisionRectangleBottomObstacle();
 	float getPositionX();
 private:
-	Texture texture{};
+	Texture& m_Texture;
 	Rectangle collisionRectangleTopObstacle{};
 	Rectangle collisionRectangleBottomObstacle{};
 	Vector2 positionTopObstacle{};
@@ -23,6 +22,6 @@ private:
 	int scrollSpeed{ 100 };
 	int heightOffset{};
 	int gapBetweenObstacles{ 90 };
-	int canvasWidth{};
-	int canvasHeight{};
+	int m_CanvasWidth{};
+	int m_CanvasHeight{};
 };

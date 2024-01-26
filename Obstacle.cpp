@@ -1,16 +1,12 @@
 #include "Obstacle.h"
 
-Obstacle::Obstacle(){}
-
-Obstacle::Obstacle(Texture texture, int startingPosition, int canvasWidth, int canvasHeight, float collisionRectangleWidthScale, float collisionRectangleHeightScale)
+Obstacle::Obstacle(Texture& texture, int startingPosition, int canvasWidth, int canvasHeight, float collisionRectangleWidthScale, float collisionRectangleHeightScale)
+	:m_Texture(texture), m_CanvasWidth(canvasWidth), m_CanvasHeight(canvasHeight)
 {
-	this->texture = texture;
-	this->canvasWidth = canvasWidth;
-	this->canvasHeight = canvasHeight;
 	positionTopObstacle.x = startingPosition;
 	positionBottomObstacle.x = startingPosition;
 
-	heightOffset = GetRandomValue(0, canvasHeight - texture.height*2 - gapBetweenObstacles);
+	heightOffset = GetRandomValue(0, m_CanvasHeight - texture.height*2 - gapBetweenObstacles);
 
 	positionTopObstacle.y = heightOffset;
 	positionBottomObstacle.y = positionTopObstacle.y + texture.height + gapBetweenObstacles;
@@ -25,8 +21,15 @@ Obstacle::Obstacle(Texture texture, int startingPosition, int canvasWidth, int c
 	float collisionRectangleTopObstaclePositionY = positionTopObstacle.y + colRecYOffset;
 	float collisionRectangleBottomObstaclePositionY = positionBottomObstacle.y + colRecYOffset;
 
-	collisionRectangleTopObstacle = { collisionRectanglePositionX, collisionRectangleTopObstaclePositionY, collisionRectangleWidth, collisionRectangleHeight };
-	collisionRectangleBottomObstacle = { collisionRectanglePositionX, collisionRectangleBottomObstaclePositionY, collisionRectangleWidth, collisionRectangleHeight };
+	collisionRectangleTopObstacle.x = collisionRectanglePositionX;
+	collisionRectangleTopObstacle.y = collisionRectangleTopObstaclePositionY;
+	collisionRectangleTopObstacle.width = collisionRectangleWidth;
+	collisionRectangleTopObstacle.height = collisionRectangleHeight;
+
+	collisionRectangleBottomObstacle.x = collisionRectanglePositionX;
+	collisionRectangleBottomObstacle.y = collisionRectangleBottomObstaclePositionY;
+	collisionRectangleBottomObstacle.width = collisionRectangleWidth;
+	collisionRectangleBottomObstacle.height = collisionRectangleHeight;
 }
 
 Rectangle Obstacle::getCollisionRectangleTopObstacle()
@@ -43,14 +46,14 @@ void Obstacle::update(float deltaTime)
 {
 	positionTopObstacle.x -= scrollSpeed * deltaTime;	
 
-	if (static_cast<int>(positionTopObstacle.x) <= -texture.width)
+	if (static_cast<int>(positionTopObstacle.x) <= -m_Texture.width)
 	{
-		positionTopObstacle.x = canvasWidth;
+		positionTopObstacle.x = m_CanvasWidth;
 
-		heightOffset = GetRandomValue(0, canvasHeight - texture.height * 2 - gapBetweenObstacles);
+		heightOffset = GetRandomValue(0, m_CanvasHeight - m_Texture.height * 2 - gapBetweenObstacles);
 
 		positionTopObstacle.y = heightOffset;
-		positionBottomObstacle.y = positionTopObstacle.y + texture.height + gapBetweenObstacles;
+		positionBottomObstacle.y = positionTopObstacle.y + m_Texture.height + gapBetweenObstacles;
 	}
 
 	positionBottomObstacle.x = positionTopObstacle.x;
@@ -69,8 +72,8 @@ float Obstacle::getPositionX()
 
 void Obstacle::render()
 {
-	DrawTextureRec(texture, Rectangle{ 0, 0, static_cast<float>(texture.width), static_cast<float>(-texture.height) }, Vector2{ positionTopObstacle.x, positionTopObstacle.y }, WHITE);
-	DrawTexture(texture, static_cast<int>(positionBottomObstacle.x), positionBottomObstacle.y, WHITE);
+	DrawTextureRec(m_Texture, Rectangle{ 0, 0, static_cast<float>(m_Texture.width), static_cast<float>(-m_Texture.height) }, Vector2{ positionTopObstacle.x, positionTopObstacle.y }, WHITE);
+	DrawTexture(m_Texture, positionBottomObstacle.x, positionBottomObstacle.y, WHITE);
 
 	DrawRectangleLinesEx(collisionRectangleTopObstacle, 3, GREEN);
 	DrawRectangleLinesEx(collisionRectangleBottomObstacle, 3, GREEN);
@@ -78,5 +81,5 @@ void Obstacle::render()
 
 void Obstacle::unloadAssets()
 {
-	UnloadTexture(texture);
+	UnloadTexture(m_Texture);
 }
