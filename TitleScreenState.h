@@ -6,13 +6,13 @@
 class TitleScreenState : public GameState
 {
 public:
-	TitleScreenState(int cW, int cH, GameStateManager& gSM);
+	TitleScreenState(int canvasWidth, int canvasHeight, GameStateManager& gameStateManager);
 	virtual void update(float deltaTime) override;
 	virtual void render(float deltaTime) override;
 	virtual void unloadAssets() override;
 private:
-	GameStateManager& gameStateManager;
+	GameStateManager& m_GameStateManager;
 	Texture background{ LoadTexture("assets/textures/titleScreen.png") };
-	int canvasWidth{};
-	int canvasHeight{};
+	int m_CanvasWidth{};
+	int m_CanvasHeight{};
 };

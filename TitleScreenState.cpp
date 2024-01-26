@@ -1,7 +1,8 @@
 #include "TitleScreenState.h"
 #include "PlayState.h"
 
-TitleScreenState::TitleScreenState(int cW, int cH, GameStateManager& gSM) : canvasWidth(cW), canvasHeight(cH), gameStateManager(gSM)
+TitleScreenState::TitleScreenState(int canvasWidth, int canvasHeight, GameStateManager& gameStateManager)
+	: m_CanvasWidth(canvasWidth), m_CanvasHeight(canvasHeight), m_GameStateManager(gameStateManager)
 {
 }
 
@@ -9,7 +10,7 @@ void TitleScreenState::update(float deltaTime)
 {
 	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 	{
-		gameStateManager.setGameState(std::make_unique<PlayState>(canvasWidth, canvasHeight, gameStateManager));
+		m_GameStateManager.setGameState(std::make_unique<PlayState>(m_CanvasWidth, m_CanvasHeight, m_GameStateManager));
 	}
 }
 
