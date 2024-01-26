@@ -1,6 +1,7 @@
 #include "PlayState.h"
 
-PlayState::PlayState(int cW, int cH, GameStateManager& gSM) : canvasWidth(cW), canvasHeight(cH), gameStateManager(gSM)
+PlayState::PlayState(int canvasWidth, int canvasHeight, GameStateManager& gameStateManager)
+	: m_CanvasWidth(canvasWidth), m_CanvasHeight(canvasHeight), m_GameStateManager(gameStateManager)
 {
 }
 
@@ -65,7 +66,7 @@ void PlayState::update(float deltaTime)
 
 	if (collided)
 	{
-		gameStateManager.setGameState(std::make_unique<PlayState>(canvasWidth, canvasHeight, gameStateManager));
+		m_GameStateManager.setGameState(std::make_unique<PlayState>(m_CanvasWidth, m_CanvasHeight, m_GameStateManager));
 	}
 }
 
@@ -86,7 +87,7 @@ void PlayState::render(float deltaTime)
 	DrawText(TextFormat("Score: %i", score), 5, 5, 10, BLACK);
 	//DrawText(TextFormat("Max Score: %i", maxScore), 5, 20, 1, BLACK);
 
-	DrawText(TextFormat("%i FPS", GetFPS()), 5, canvasHeight - 10, 10, GREEN);
+	DrawText(TextFormat("%i FPS", GetFPS()), 5, m_CanvasHeight - 10, 10, GREEN);
 }
 
 void PlayState::unloadAssets()

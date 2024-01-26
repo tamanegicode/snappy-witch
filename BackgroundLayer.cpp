@@ -1,16 +1,13 @@
 #include "BackgroundLayer.h"
 
-BackgroundLayer::BackgroundLayer(){}
-
-BackgroundLayer::BackgroundLayer(Texture texture, int scrollSpeed, int canvasWidth, int canvasHeight, int offset)
+BackgroundLayer::BackgroundLayer(std::string texturePath, int scrollSpeed, int canvasWidth, int canvasHeight, int offset) : m_TexturePath(texturePath)
 {
-	this->texture = texture;
 	this->scrollSpeed = scrollSpeed;
 	this->canvasWidth = canvasWidth;
 	this->canvasHeight = canvasHeight;
 	this->offset = offset;
 
-	numberOfSprites = canvasWidth / texture.width;
+	numberOfSprites = canvasWidth + (texture.width - 1) / texture.width;
 }
 
 void BackgroundLayer::update(float deltaTime)
