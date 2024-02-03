@@ -19,7 +19,7 @@ private:
 	Vector2 positionBottomObstacle{};
 	float colRecXOffset{ 1.0f };
 	float colRecYOffset{ 1.0f };
-	int scrollSpeed{ 100 };
+	int scrollSpeed{ 120 };
 	int heightOffset{};
 	int gapBetweenObstacles{ 90 };
 	int m_CanvasWidth{};

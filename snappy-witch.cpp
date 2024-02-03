@@ -7,11 +7,19 @@ int main()
 	const int canvasWidth{ 320 };
 	const int canvasHeight{ 180 };
 
-	const int windowWidth{ canvasWidth * 4 };
-	const int windowHeight{ canvasHeight * 4 };
+	SetConfigFlags(FLAG_VSYNC_HINT);
 
-	InitWindow(windowWidth, windowHeight, "Snappy Witch");
-	SetTargetFPS(GetMonitorRefreshRate(GetCurrentMonitor()));
+	InitWindow(0, 0, "Snappy Witch");
+	ToggleBorderlessWindowed();
+
+	const int windowWidth{ GetMonitorWidth(GetCurrentMonitor()) };
+	const int windowHeight{ GetMonitorHeight(GetCurrentMonitor()) };
+
+	int framerateScale = GetMonitorRefreshRate(GetCurrentMonitor()) / 60;
+
+	int targetFramerate{ 60 * framerateScale };
+
+	SetTargetFPS(targetFramerate);	
 
 	RenderTexture renderTexture{ LoadRenderTexture(canvasWidth, canvasHeight) };
 
@@ -35,7 +43,7 @@ int main()
 		EndTextureMode();
 
 		BeginDrawing();
-		DrawTexturePro(renderTexture.texture, Rectangle{ 0, 0, canvasWidth, -canvasHeight }, Rectangle{ 0, 0, windowWidth, windowHeight }, Vector2{ 0, 0 }, 0.0f, WHITE);
+		DrawTexturePro(renderTexture.texture, Rectangle{ 0, 0, canvasWidth, -canvasHeight }, Rectangle{ 0, 0, static_cast<float>(windowWidth), static_cast<float>(windowHeight) }, Vector2{ 0, 0 }, 0.0f, WHITE);
 		EndDrawing();
 	}
 

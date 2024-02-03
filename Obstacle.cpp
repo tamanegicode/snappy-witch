@@ -73,7 +73,7 @@ float Obstacle::getPositionX()
 void Obstacle::render()
 {
 	DrawTextureRec(m_Texture, Rectangle{ 0, 0, static_cast<float>(m_Texture.width), static_cast<float>(-m_Texture.height) }, Vector2{ positionTopObstacle.x, positionTopObstacle.y }, WHITE);
-	DrawTexture(m_Texture, positionBottomObstacle.x, positionBottomObstacle.y, WHITE);
+	DrawTextureRec(m_Texture, Rectangle{ 0, 0, static_cast<float>(m_Texture.width), static_cast<float>(m_Texture.height) }, Vector2{ positionBottomObstacle.x, positionBottomObstacle.y }, WHITE);
 
 	DrawRectangleLinesEx(collisionRectangleTopObstacle, 3, GREEN);
 	DrawRectangleLinesEx(collisionRectangleBottomObstacle, 3, GREEN);
