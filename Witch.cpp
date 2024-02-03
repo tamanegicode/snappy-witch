@@ -28,6 +28,11 @@ float Witch::getPositionX()
 	return position.x;
 }
 
+Vector2* Witch::getPosition()
+{
+	return &position;
+}
+
 void Witch::update(float deltaTime)
 {
 	velocity += gravity * deltaTime;

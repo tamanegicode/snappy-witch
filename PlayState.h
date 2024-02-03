@@ -6,6 +6,7 @@
 #include "GameStateManager.h"
 #include <stack>
 #include <memory>
+#include "Bat.h"
 
 class PlayState : public GameState
 {
@@ -19,6 +20,7 @@ private:
 	int m_CanvasWidth{};
 	int m_CanvasHeight{};
 	Witch witch { m_CanvasHeight, 0.5f, 0.6f };
+	Bat bat{ *witch.getPosition() };
 
 	std::unique_ptr<BackgroundLayer> backgroundLayers[6]{
 	std::make_unique<BackgroundLayer>("assets/textures/background.png", 0, m_CanvasWidth, m_CanvasHeight),

@@ -10,6 +10,7 @@ class Witch
 		void unloadAssets();
 		Rectangle getCollisionRectangle();
 		float getPositionX();
+		Vector2* getPosition();
 	private:
 		Texture flyTexture{ LoadTexture("assets/textures/spritesheetWitch.png") };
 		int frameToDraw{ 0 };

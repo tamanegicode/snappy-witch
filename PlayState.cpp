@@ -31,6 +31,8 @@ void PlayState::update(float deltaTime)
 
 	witch.update(deltaTime);
 
+	bat.update(deltaTime);
+
 	for (auto &layer : backgroundLayers)
 	{
 		layer->update(deltaTime);
@@ -78,6 +80,8 @@ void PlayState::render(float deltaTime)
 	}
 
 	witch.render(deltaTime);
+
+	bat.render(deltaTime);
 
 	for (auto &obs : obstacles)
 	{
