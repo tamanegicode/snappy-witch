@@ -35,7 +35,7 @@ private:
 
 	std::unique_ptr <Obstacle> obstacles[2]{
 		std::make_unique<Obstacle>(obstacleTexture, m_CanvasWidth, m_CanvasWidth, m_CanvasHeight, 0.8f, 1.0f),
-		std::make_unique<Obstacle>(obstacleTexture, m_CanvasWidth + m_CanvasWidth / 2, m_CanvasWidth, m_CanvasHeight, 0.8f, 1.0f)
+		std::make_unique<Obstacle>(obstacleTexture, m_CanvasWidth + m_CanvasWidth / 2 + obstacleTexture.width / 2, m_CanvasWidth, m_CanvasHeight, 0.8f, 1.0f)
 	};
 
 	int calcNextObstacle(std::unique_ptr<Obstacle> obstacles[], float witchPosition);
