@@ -2,6 +2,8 @@
 #include "GameState.h"
 #include "GameStateManager.h"
 #include "raylib.h"
+#include "BackgroundLayer.h"
+#include "Witch.h"
 
 class TitleScreenState : public GameState
 {
@@ -12,8 +14,25 @@ public:
 	virtual void unloadAssets() override;
 private:
 	GameStateManager& m_GameStateManager;
-	Texture background{ LoadTexture("assets/textures/titleScreen.png") };
 	int m_CanvasWidth{};
 	int m_CanvasHeight{};
 	int& m_MaxScore;
+	Texture sky{ LoadTexture("assets/textures/titleScreenSky.png") };
+	Texture trees1{ LoadTexture("assets/textures/titleScreenTrees1.png") };
+	Texture trees2{ LoadTexture("assets/textures/titleScreenTrees2.png") };
+	Texture thorns{ LoadTexture("assets/textures/titleScreenThorns.png") };
+	Texture logo{ LoadTexture("assets/textures/titleScreenLogo.png") };
+	Texture witch{ LoadTexture("assets/textures/spritesheetWitch.png") };
+	Texture playButtonDefault{ LoadTexture("assets/textures/titleScreenButtonDefault.png") };
+	Texture playButtonHover{ LoadTexture("assets/textures/titleScreenButtonHover.png") };
+	Texture playButtonPressed{ LoadTexture("assets/textures/titleScreenButtonPressed.png") };
+	Vector2 playButtonPosition{ static_cast<float>(m_CanvasWidth / 2 - playButtonDefault.width / 2), 150 };
+	bool isMouseOverPlayButton{ false };
+
+	BackgroundLayer clouds { "assets/textures/titleScreenClouds.png", 2, m_CanvasWidth, m_CanvasHeight };
+	
+	int witchFrameToDraw{ 0 };
+	int witchFrameNumber{ 3 };
+	float witchFrameTime{ 0.3f };
+	float witchAnimationTime{ 0.0f };
 };
