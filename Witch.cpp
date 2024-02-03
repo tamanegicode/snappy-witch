@@ -77,7 +77,8 @@ void Witch::render(float deltaTime)
 	else
 		DrawTexture(jumpTexture, position.x, position.y, WHITE);
 
-	DrawRectangleLinesEx(collisionRectangle, 3, RED);
+	//Uncomment to make collision rectangles visible for testing purposes
+	//DrawRectangleLinesEx(collisionRectangle, 3, RED);
 }
 
 void Witch::unloadAssets()
