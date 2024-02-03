@@ -39,7 +39,7 @@ int main()
 		EndDrawing();
 	}
 
-	gameStateManager.unloadAssets();
+	gameStateManager.cleanStack();
 
 	UnloadRenderTexture(renderTexture);
 

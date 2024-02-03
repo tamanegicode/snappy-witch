@@ -11,6 +11,7 @@ public:
 	void update(float deltaTime);
 	void render(float deltaTime);
 	void unloadAssets();
+	void cleanStack();
 private:
 	std::stack<std::unique_ptr<GameState>> gameStates{};
 };

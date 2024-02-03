@@ -28,3 +28,12 @@ void GameStateManager::unloadAssets()
 {
 	gameStates.top()->unloadAssets();
 }
+
+void GameStateManager::cleanStack()
+{
+	while (!gameStates.empty())
+	{
+		unloadAssets();
+		gameStates.pop();
+	}
+}
