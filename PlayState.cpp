@@ -91,7 +91,8 @@ void PlayState::render(float deltaTime)
 	DrawText(TextFormat("Score: %i", score), 5, 5, 10, BLACK);
 	DrawText(TextFormat("Max Score: %i", m_MaxScore), 5, 20, 1, BLACK);
 
-	DrawText(TextFormat("%i FPS", GetFPS()), 5, m_CanvasHeight - 10, 10, GREEN);
+	//Uncomment to make current FPS visible for testing purposes
+	//DrawText(TextFormat("%i FPS", GetFPS()), 5, m_CanvasHeight - 10, 10, GREEN);
 }
 
 void PlayState::unloadAssets()
