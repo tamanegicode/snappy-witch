@@ -8,17 +8,20 @@ Bat::Bat(Vector2 &witchPosition)
 
 void Bat::update(float deltaTime)
 {
-
 	direction = Vector2Subtract(Vector2Add(*m_WitchPosition, offset), position);
 
-	if (Vector2Length(direction) <= 5.0f)
-		return;
+	if (Vector2Length(direction) <= 1.0f)
+		follow = false;
+	else if (Vector2Length(direction) > 15.0f)
+		follow = true;
 
-	direction = Vector2Normalize(direction);
+	if (follow)
+	{
+		direction = Vector2Normalize(direction);
+		direction = Vector2Scale(direction, speed * deltaTime);
 
-	direction = Vector2Scale(direction, speed * deltaTime);
-
-	position = Vector2Add(position, direction);
+		position = Vector2Add(position, direction);
+	}
 }
 
 void Bat::render(float deltaTime)

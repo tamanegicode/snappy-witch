@@ -19,4 +19,5 @@ private:
 	Vector2 direction{};
 	Vector2 offset{ 60, 20 };
 	float speed{ 100 };
+	bool follow{ false };
 };
