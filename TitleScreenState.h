@@ -27,6 +27,7 @@ private:
 	Texture playButtonHover{ LoadTexture("assets/textures/titleScreenButtonHover.png") };
 	Texture playButtonPressed{ LoadTexture("assets/textures/titleScreenButtonPressed.png") };
 	Vector2 playButtonPosition{ static_cast<float>(m_CanvasWidth / 2 - playButtonDefault.width / 2), 150 };
+	Rectangle playButtonCollisionRectangle{ playButtonPosition.x, playButtonPosition.y, static_cast<float>(playButtonDefault.width), static_cast<float>(playButtonDefault.height) };
 	bool isMouseOverPlayButton{ false };
 
 	BackgroundLayer clouds { "assets/textures/titleScreenClouds.png", 2, m_CanvasWidth, m_CanvasHeight };

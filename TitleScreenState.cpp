@@ -8,20 +8,9 @@ TitleScreenState::TitleScreenState(int canvasWidth, int canvasHeight, GameStateM
 
 void TitleScreenState::update(float deltaTime)
 {
-	int scaledMouseX = GetMouseX() * m_CanvasWidth / GetMonitorWidth(GetCurrentMonitor());
-	int scaledMouseY = GetMouseY() * m_CanvasHeight / GetMonitorHeight(GetCurrentMonitor());
+	Vector2 scaledMousePosition{ GetMouseX() * m_CanvasWidth / GetMonitorWidth(GetCurrentMonitor()), GetMouseY() * m_CanvasHeight / GetMonitorHeight(GetCurrentMonitor()) };
 
-	if (scaledMouseX > playButtonPosition.x &&
-		scaledMouseX < playButtonPosition.x + playButtonDefault.width &&
-		scaledMouseY > playButtonPosition.y &&
-		scaledMouseY < playButtonPosition.y + playButtonDefault.height)
-	{
-		isMouseOverPlayButton = true;
-	}
-	else
-	{
-		isMouseOverPlayButton = false;
-	}
+	isMouseOverPlayButton = CheckCollisionPointRec(scaledMousePosition, playButtonCollisionRectangle);
 
 	if (isMouseOverPlayButton && IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
 	{
