@@ -36,8 +36,7 @@ void TitleScreenState::render(float deltaTime)
 	DrawTexture(sky, 0, 0, WHITE);
 	clouds.render();
 	DrawTexture(trees1, 0, m_CanvasHeight - trees1.height, WHITE);
-	DrawTexture(trees2, 0, m_CanvasHeight - trees2.height, WHITE);
-	DrawTexture(logo, m_CanvasWidth / 2 - logo.width / 2, 90, WHITE);
+	DrawTexture(trees2, 0, m_CanvasHeight - trees2.height, WHITE);	
 
 	witchAnimationTime += deltaTime;
 
@@ -55,6 +54,8 @@ void TitleScreenState::render(float deltaTime)
 		WHITE);
 
 	DrawTexture(thorns, 0, 0, WHITE);
+
+	DrawTexture(logo, m_CanvasWidth / 2 - logo.width / 2, 90, WHITE);
 
 	if (isMouseOverPlayButton)
 	{
