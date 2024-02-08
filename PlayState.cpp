@@ -32,6 +32,11 @@ void PlayState::update(float deltaTime)
 	if (witch.getDead())
 	{
 		countdownToReset -= deltaTime;
+		if (countdownToReset <= 1.0f)
+		{
+			fadeIn = false;
+		}
+
 		if (countdownToReset <= 0)
 			m_GameStateManager.setGameState(std::make_unique<PlayState>(m_CanvasWidth, m_CanvasHeight, m_GameStateManager, m_MaxScore));
 
@@ -94,6 +99,25 @@ void PlayState::render(float deltaTime)
 
 	DrawText(TextFormat("Score: %i", score), 5, 5, 10, RAYWHITE);
 	DrawText(TextFormat("High Score: %i", m_MaxScore), 5, 20, 1, RAYWHITE);
+
+	if (fadeColor.a > 0 && fadeIn)
+	{
+		if (fadeColor.a - fadeSpeed * deltaTime < 0)
+			fadeColor.a = 0;
+		else
+			fadeColor.a -= fadeSpeed * deltaTime;
+
+		DrawRectangle(0, 0, m_CanvasWidth, m_CanvasHeight, fadeColor);
+	}
+	else if (fadeColor.a <= 255 && !fadeIn)
+	{
+		if (fadeColor.a + fadeSpeed * deltaTime > 255)
+			fadeColor.a = 255;
+		else
+			fadeColor.a += fadeSpeed * deltaTime;
+
+		DrawRectangle(0, 0, m_CanvasWidth, m_CanvasHeight, fadeColor);
+	}
 
 	//Uncomment to make current FPS visible for testing purposes
 	//DrawText(TextFormat("%i FPS", GetFPS()), 5, m_CanvasHeight - 10, 10, GREEN);

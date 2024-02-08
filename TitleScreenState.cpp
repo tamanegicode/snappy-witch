@@ -14,10 +14,16 @@ void TitleScreenState::update(float deltaTime)
 
 	if (isMouseOverPlayButton && IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
 	{
-		m_GameStateManager.setGameState(std::make_unique<PlayState>(m_CanvasWidth, m_CanvasHeight, m_GameStateManager, m_MaxScore));
+		fadeIn = false;
 	}
 
 	clouds.update(deltaTime);
+
+	if (!fadeIn)
+	{
+		if(fadeColor.a >= 255)
+			m_GameStateManager.setGameState(std::make_unique<PlayState>(m_CanvasWidth, m_CanvasHeight, m_GameStateManager, m_MaxScore));
+	}
 }
 
 void TitleScreenState::render(float deltaTime)
@@ -71,7 +77,26 @@ void TitleScreenState::render(float deltaTime)
 	else
 	{
 		DrawTexture(playButtonDefault, playButtonPosition.x, playButtonPosition.y, WHITE);
-	}	
+	}
+
+	if (fadeColor.a > 0 && fadeIn)
+	{
+		if (fadeColor.a - fadeSpeed * deltaTime < 0)
+			fadeColor.a = 0;
+		else
+			fadeColor.a -= fadeSpeed * deltaTime;
+
+		DrawRectangle(0, 0, m_CanvasWidth, m_CanvasHeight, fadeColor);
+	}
+	else if (fadeColor.a <= 255 && !fadeIn)
+	{
+		if (fadeColor.a + fadeSpeed * deltaTime > 255)
+			fadeColor.a = 255;
+		else
+			fadeColor.a += fadeSpeed * deltaTime;
+
+		DrawRectangle(0, 0, m_CanvasWidth, m_CanvasHeight, fadeColor);
+	}
 }
 
 void TitleScreenState::unloadAssets()

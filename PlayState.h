@@ -44,6 +44,10 @@ private:
 
 	int score{ 0 };
 	int& m_MaxScore;
-	float countdownToReset{ 3.0f };
 	Sound crashSound{ LoadSound("assets/sounds/crash.mp3") };
+	float countdownToReset{ 3.0f };
+
+	Color fadeColor{ 0, 0, 0, 255 };
+	float fadeSpeed{ 300.0f };
+	bool fadeIn{ true };
 };

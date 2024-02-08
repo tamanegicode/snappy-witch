@@ -32,6 +32,10 @@ private:
 	bool isMouseOverPlayButton{ false };
 
 	BackgroundLayer clouds { "assets/textures/titleScreenClouds.png", 2, m_CanvasWidth, m_CanvasHeight };
+
+	Color fadeColor{ 0, 0, 0, 255 };
+	float fadeSpeed{ 300.0f };
+	bool fadeIn{ true };
 	
 	int witchFrameToDraw{ 0 };
 	int witchFrameNumber{ 3 };
