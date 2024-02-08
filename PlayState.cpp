@@ -64,11 +64,13 @@ void PlayState::update(float deltaTime)
 		if (CheckCollisionRecs(witch.getCollisionRectangle(), obs->getCollisionRectangleTopObstacle()))
 		{
 			witch.setDead();
+			PlaySound(crashSound);
 			break;
 		}
 		else if (CheckCollisionRecs(witch.getCollisionRectangle(), obs->getCollisionRectangleBottomObstacle()))
 		{
 			witch.setDead();
+			PlaySound(crashSound);
 			break;
 		}
 	}
@@ -107,4 +109,5 @@ void PlayState::unloadAssets()
 	}
 
 	UnloadTexture(obstacleTexture);
+	UnloadSound(crashSound);
 }
