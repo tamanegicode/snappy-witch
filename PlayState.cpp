@@ -92,8 +92,8 @@ void PlayState::render(float deltaTime)
 		obs->render();
 	}
 
-	DrawText(TextFormat("Score: %i", score), 5, 5, 10, BLACK);
-	DrawText(TextFormat("Max Score: %i", m_MaxScore), 5, 20, 1, BLACK);
+	DrawText(TextFormat("Score: %i", score), 5, 5, 10, RAYWHITE);
+	DrawText(TextFormat("High Score: %i", m_MaxScore), 5, 20, 1, RAYWHITE);
 
 	//Uncomment to make current FPS visible for testing purposes
 	//DrawText(TextFormat("%i FPS", GetFPS()), 5, m_CanvasHeight - 10, 10, GREEN);
