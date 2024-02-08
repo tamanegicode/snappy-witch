@@ -50,9 +50,10 @@ void Witch::update(float deltaTime)
 	if (!dead && (IsKeyPressed(KEY_SPACE) || IsMouseButtonPressed(MOUSE_BUTTON_LEFT)))
 	{
 		velocity = jumpForce;
+		PlaySound(jumpSound);
 	}
 
-	position.y += velocity * deltaTime;	
+	position.y += velocity * deltaTime;
 
 	if (!dead)
 	{
@@ -80,7 +81,7 @@ void Witch::render(float deltaTime)
 		animationTime = 0;
 	}
 
-	if(dead)
+	if (dead)
 		DrawTexture(fallTexture, position.x, position.y, WHITE);
 	else if (velocity > 0)
 		DrawTexturePro(flyTexture,
@@ -101,4 +102,5 @@ void Witch::unloadAssets()
 	UnloadTexture(flyTexture);
 	UnloadTexture(jumpTexture);
 	UnloadTexture(fallTexture);
+	UnloadSound(jumpSound);
 }
