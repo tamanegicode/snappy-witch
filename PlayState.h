@@ -19,7 +19,7 @@ private:
 	GameStateManager& m_GameStateManager;
 	int m_CanvasWidth{};
 	int m_CanvasHeight{};
-	Witch witch { m_CanvasHeight, 0.5f, 0.6f };
+	Witch witch{ m_CanvasHeight, 0.5f, 0.6f };
 	Bat bat{ *witch.getPosition() };
 
 	std::unique_ptr<BackgroundLayer> backgroundLayers[6]{
@@ -34,8 +34,8 @@ private:
 	Texture obstacleTexture{ LoadTexture("assets/textures/obstacle.png") };
 
 	std::unique_ptr <Obstacle> obstacles[2]{
-		std::make_unique<Obstacle>(obstacleTexture, m_CanvasWidth, m_CanvasWidth, m_CanvasHeight, 0.8f, 1.0f),
-		std::make_unique<Obstacle>(obstacleTexture, m_CanvasWidth + m_CanvasWidth / 2 + obstacleTexture.width / 2, m_CanvasWidth, m_CanvasHeight, 0.8f, 1.0f)
+		std::make_unique<Obstacle>(obstacleTexture, m_CanvasWidth * 1.5f, m_CanvasWidth, m_CanvasHeight, 0.8f, 1.0f),
+		std::make_unique<Obstacle>(obstacleTexture, m_CanvasWidth * 1.5f + m_CanvasWidth / 2 + obstacleTexture.width / 2, m_CanvasWidth, m_CanvasHeight, 0.8f, 1.0f)
 	};
 
 	int calcNextObstacle(std::unique_ptr<Obstacle> obstacles[], float witchPosition);
