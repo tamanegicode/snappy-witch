@@ -35,9 +35,24 @@ void TitleScreenState::render(float deltaTime)
 		witchAnimationTime = 0;
 	}
 
+	batAnimationTime += deltaTime;
+
+	if (batAnimationTime > batFrameTime)
+	{
+		batFrameToDraw == batFrameNumber - 1 ? batFrameToDraw = 0 : batFrameToDraw += 1;
+		batAnimationTime = 0;
+	}
+
 	DrawTexturePro(witch,
 		Rectangle{ static_cast<float>(witch.width / witchFrameNumber) * witchFrameToDraw, 0, static_cast<float>(witch.width / witchFrameNumber), static_cast<float>(witch.height) },
 		Rectangle{ static_cast<float>(m_CanvasWidth / 2 - (witch.width / witchFrameNumber) / 2), 15, static_cast<float>(witch.width / witchFrameNumber), static_cast<float>(witch.height)},
+		Vector2{ 0, 0 },
+		0.0f,
+		WHITE);
+
+	DrawTexturePro(bat,
+		Rectangle{ static_cast<float>(bat.width / batFrameNumber) * batFrameToDraw, 0, static_cast<float>(bat.width / batFrameNumber), static_cast<float>(bat.height) },
+		Rectangle{ static_cast<float>(m_CanvasWidth / 2 + 15), 35, static_cast<float>(bat.width / batFrameNumber), static_cast<float>(bat.height) },
 		Vector2{ 0, 0 },
 		0.0f,
 		WHITE);

@@ -23,6 +23,7 @@ private:
 	Texture thorns{ LoadTexture("assets/textures/titleScreenThorns.png") };
 	Texture logo{ LoadTexture("assets/textures/titleScreenLogo.png") };
 	Texture witch{ LoadTexture("assets/textures/spritesheetWitch.png") };
+	Texture bat{ LoadTexture("assets/textures/bat.png") };
 	Texture playButtonDefault{ LoadTexture("assets/textures/titleScreenButtonDefault.png") };
 	Texture playButtonHover{ LoadTexture("assets/textures/titleScreenButtonHover.png") };
 	Texture playButtonPressed{ LoadTexture("assets/textures/titleScreenButtonPressed.png") };
@@ -36,4 +37,9 @@ private:
 	int witchFrameNumber{ 3 };
 	float witchFrameTime{ 0.3f };
 	float witchAnimationTime{ 0.0f };
+
+	int batFrameToDraw{ 0 };
+	int batFrameNumber{ 6 };
+	float batFrameTime{ 0.1f };
+	float batAnimationTime{ 0.0f };
 };
