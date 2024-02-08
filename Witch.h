@@ -28,7 +28,7 @@ class Witch
 		Vector2 position{ 10, 0 };
 		int velocity{};
 		int gravity{ 400 };
-		int jumpForce{ -180 };
+		int jumpForce{ -175 };
 		int m_CanvasHeight{};
 		bool dead{ false };
 };

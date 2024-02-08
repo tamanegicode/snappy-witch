@@ -19,7 +19,7 @@ private:
 	GameStateManager& m_GameStateManager;
 	int m_CanvasWidth{};
 	int m_CanvasHeight{};
-	Witch witch{ m_CanvasHeight, 0.5f, 0.6f };
+	Witch witch{ m_CanvasHeight, 0.45f, 0.6f };
 	Bat bat{ *witch.getPosition() };
 
 	std::unique_ptr<BackgroundLayer> backgroundLayers[6]{
