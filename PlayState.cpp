@@ -40,17 +40,17 @@ void PlayState::update(float deltaTime)
 
 	bat.update(deltaTime);
 
-	for (auto &layer : backgroundLayers)
+	for (auto& layer : backgroundLayers)
 	{
 		layer->update(deltaTime);
 	}
 
-	for (auto &obs : obstacles)
+	for (auto& obs : obstacles)
 	{
 		obs->update(deltaTime);
 	}
 
-	if (obstacles[nextObstacleIndex]->getPositionX() <= witch.getPositionX())
+	if (obstacles[nextObstacleIndex]->getPositionX() + obstacles[nextObstacleIndex]->getCollisionRectangleBottomObstacle().width <= witch.getCollisionRectangle().x)
 	{
 		score++;
 
@@ -59,7 +59,7 @@ void PlayState::update(float deltaTime)
 		nextObstacleIndex = calcNextObstacle(obstacles, witch.getPositionX());
 	}
 
-	for (auto &obs : obstacles)
+	for (auto& obs : obstacles)
 	{
 		if (CheckCollisionRecs(witch.getCollisionRectangle(), obs->getCollisionRectangleTopObstacle()))
 		{
@@ -76,7 +76,7 @@ void PlayState::update(float deltaTime)
 
 void PlayState::render(float deltaTime)
 {
-	for (auto &layer : backgroundLayers)
+	for (auto& layer : backgroundLayers)
 	{
 		layer->render();
 	}
@@ -85,7 +85,7 @@ void PlayState::render(float deltaTime)
 
 	bat.render(deltaTime);
 
-	for (auto &obs : obstacles)
+	for (auto& obs : obstacles)
 	{
 		obs->render();
 	}
@@ -101,7 +101,7 @@ void PlayState::unloadAssets()
 {
 	witch.unloadAssets();
 
-	for (auto &layer : backgroundLayers)
+	for (auto& layer : backgroundLayers)
 	{
 		layer->unloadAssets();
 	}
