@@ -10,6 +10,7 @@ int main()
 	SetConfigFlags(FLAG_VSYNC_HINT);
 
 	InitWindow(0, 0, "Snappy Witch");
+	InitAudioDevice();
 	ToggleBorderlessWindowed();
 
 	const int windowWidth{ GetMonitorWidth(GetCurrentMonitor()) };
@@ -27,11 +28,18 @@ int main()
 
 	int maxScore{ 0 };
 
+	Music backgroundMusic = LoadMusicStream("assets/sounds/bgm.mp3");
+	backgroundMusic.looping = true;
+
+	PlayMusicStream(backgroundMusic);
+
 	gameStateManager.setGameState(std::make_unique<TitleScreenState>(canvasWidth, canvasHeight, gameStateManager, maxScore));
 
 	while (WindowShouldClose() != true)
 	{
 		const float deltaTime{ GetFrameTime() };
+
+		UpdateMusicStream(backgroundMusic);
 
 		gameStateManager.update(deltaTime);
 
@@ -50,6 +58,7 @@ int main()
 	gameStateManager.cleanStack();
 
 	UnloadRenderTexture(renderTexture);
+	UnloadMusicStream(backgroundMusic);
 
 	CloseWindow();
 }
