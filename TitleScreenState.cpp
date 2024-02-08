@@ -82,6 +82,7 @@ void TitleScreenState::unloadAssets()
 	UnloadTexture(trees2);
 	UnloadTexture(logo);
 	UnloadTexture(witch);
+	UnloadTexture(bat);
 	UnloadTexture(thorns);
 	UnloadTexture(playButtonDefault);
 	UnloadTexture(playButtonHover);
