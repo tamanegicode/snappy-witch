@@ -30,6 +30,7 @@ int main()
 
 	Music backgroundMusic = LoadMusicStream("assets/sounds/bgm.mp3");
 	backgroundMusic.looping = true;
+	SetMusicVolume(backgroundMusic, 0.6f);
 
 	PlayMusicStream(backgroundMusic);
 
@@ -60,5 +61,6 @@ int main()
 	UnloadRenderTexture(renderTexture);
 	UnloadMusicStream(backgroundMusic);
 
+	CloseAudioDevice();
 	CloseWindow();
 }
