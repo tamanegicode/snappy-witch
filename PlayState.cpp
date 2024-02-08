@@ -27,9 +27,16 @@ int PlayState::calcNextObstacle(std::unique_ptr <Obstacle> obstacles[], float wi
 
 void PlayState::update(float deltaTime)
 {
-	collided = false;
-
 	witch.update(deltaTime);
+
+	if (witch.getDead())
+	{
+		countdownToReset -= deltaTime;
+		if (countdownToReset <= 0)
+			m_GameStateManager.setGameState(std::make_unique<PlayState>(m_CanvasWidth, m_CanvasHeight, m_GameStateManager, m_MaxScore));
+
+		return;
+	}
 
 	bat.update(deltaTime);
 
@@ -56,19 +63,14 @@ void PlayState::update(float deltaTime)
 	{
 		if (CheckCollisionRecs(witch.getCollisionRectangle(), obs->getCollisionRectangleTopObstacle()))
 		{
-			collided = true;
+			witch.setDead();
 			break;
 		}
 		else if (CheckCollisionRecs(witch.getCollisionRectangle(), obs->getCollisionRectangleBottomObstacle()))
 		{
-			collided = true;
+			witch.setDead();
 			break;
 		}
-	}
-
-	if (collided)
-	{
-		m_GameStateManager.setGameState(std::make_unique<PlayState>(m_CanvasWidth, m_CanvasHeight, m_GameStateManager, m_MaxScore));
 	}
 }
 

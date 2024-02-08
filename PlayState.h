@@ -44,5 +44,5 @@ private:
 
 	int score{ 0 };
 	int& m_MaxScore;
-	bool collided{};
+	float countdownToReset{ 3.0f };
 };
