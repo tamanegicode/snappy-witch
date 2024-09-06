@@ -29,6 +29,8 @@ void PlayState::update(float deltaTime)
 {
 	witch.update(deltaTime);
 
+	bat.update(deltaTime);
+
 	if (witch.getDead())
 	{
 		countdownToReset -= deltaTime;
@@ -41,9 +43,7 @@ void PlayState::update(float deltaTime)
 			m_GameStateManager.setGameState(std::make_unique<PlayState>(m_CanvasWidth, m_CanvasHeight, m_GameStateManager, m_MaxScore));
 
 		return;
-	}
-
-	bat.update(deltaTime);
+	}	
 
 	for (auto& layer : backgroundLayers)
 	{
