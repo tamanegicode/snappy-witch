@@ -2,6 +2,13 @@
 #include "TitleScreenState.h"
 #include "GameStateManager.h"
 
+//Uncomment if building for Web. Leave as is if building for PC.
+//#define PLATFORM_WEB
+
+#ifdef PLATFORM_WEB
+#include <emscripten/emscripten.h>
+#endif
+
 const int canvasWidth{ 320 };
 const int canvasHeight{ 180 };
 
@@ -18,10 +25,16 @@ int main()
 {
 	SetConfigFlags(FLAG_VSYNC_HINT);
 
-	InitWindow(0, 0, "Snappy Witch");
+#ifdef PLATFORM_WEB
+	windowWidth = canvasWidth * 3;
+	windowHeight = canvasHeight * 3;
+#endif
+
+	InitWindow(windowWidth, windowHeight, "Snappy Witch");
 	InitAudioDevice();
 	ToggleBorderlessWindowed();
 
+#ifndef PLATFORM_WEB
 	windowWidth = GetMonitorWidth(GetCurrentMonitor());
 	windowHeight = GetMonitorHeight(GetCurrentMonitor());
 
@@ -29,7 +42,8 @@ int main()
 
 	int targetFramerate{ 60 * framerateScale };
 
-	SetTargetFPS(targetFramerate);	
+	SetTargetFPS(targetFramerate);
+#endif
 
 	renderTexture = LoadRenderTexture(canvasWidth, canvasHeight);	
 
@@ -43,10 +57,14 @@ int main()
 
 	gameStateManager.setGameState(std::make_unique<TitleScreenState>(canvasWidth, canvasHeight, gameStateManager, maxScore));
 
+#ifdef PLATFORM_WEB
+	emscripten_set_main_loop(UpdateDrawFrame, 60, 1);
+#else
 	while (WindowShouldClose() != true)
 	{
 		UpdateDrawFrame();
 	}
+#endif
 
 	gameStateManager.cleanStack();
 
