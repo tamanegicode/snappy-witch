@@ -1,5 +1,5 @@
 # Snappy Witch
-A sidescroller based on good ol' Flappy Bird.
+A side-scroller based on good ol' Flappy Bird.
 
 ![Snappy Witch Title Screen](screenshots/titlescreen.gif)
 
