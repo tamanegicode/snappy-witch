@@ -3,6 +3,8 @@ A sidescroller based on good ol' Flappy Bird.
 
 ![Snappy Witch Title Screen](screenshots/titlescreen.gif)
 
+[Give it a whirl on itch.io!](https://tamanegicode.itch.io/snappy-witch)
+
 ## How to Play
 Click (or press the Space key) to jump. Do your best to avoid the obstacles.
 
