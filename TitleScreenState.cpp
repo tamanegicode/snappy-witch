@@ -1,9 +1,6 @@
 #include "TitleScreenState.h"
 #include "PlayState.h"
 
-//Uncomment if building for Web. Leave as is if building for PC.
-//#define PLATFORM_WEB
-
 TitleScreenState::TitleScreenState(int canvasWidth, int canvasHeight, GameStateManager& gameStateManager, int& maxScore)
 	: m_CanvasWidth(canvasWidth), m_CanvasHeight(canvasHeight), m_GameStateManager(gameStateManager), m_MaxScore(maxScore)
 {
@@ -11,11 +8,7 @@ TitleScreenState::TitleScreenState(int canvasWidth, int canvasHeight, GameStateM
 
 void TitleScreenState::update(float deltaTime)
 {
-#ifdef PLATFORM_WEB
 	Vector2 scaledMousePosition{ static_cast<float>(GetMouseX() * m_CanvasWidth / GetScreenWidth()), static_cast<float>(GetMouseY() * m_CanvasHeight / GetScreenHeight()) };
-#else
-	Vector2 scaledMousePosition{ static_cast<float>(GetMouseX() * m_CanvasWidth / GetMonitorWidth(GetCurrentMonitor())), static_cast<float>(GetMouseY() * m_CanvasHeight / GetMonitorHeight(GetCurrentMonitor())) };
-#endif	
 
 	isMouseOverPlayButton = CheckCollisionPointRec(scaledMousePosition, playButtonCollisionRectangle);
 

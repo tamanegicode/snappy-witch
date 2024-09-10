@@ -11,33 +11,33 @@
 
 const int canvasWidth{ 320 };
 const int canvasHeight{ 180 };
+float canvasScale{ 1.0f };
+Vector2 canvasPosition{ 0,0 };
 
-int windowWidth{};
-int windowHeight{};
+int windowWidth{ canvasWidth };
+int windowHeight{ canvasHeight };
+
+float windowResizeCheckInterval{ 3.0f };
+float windowResizeCheckTimer{ 3.0f };
 
 Music backgroundMusic{};
 RenderTexture renderTexture{};
 GameStateManager gameStateManager;
 
 void UpdateDrawFrame();
+void ResizeToFitWindow();
 
 int main()
 {
 	SetConfigFlags(FLAG_VSYNC_HINT);
-
-#ifdef PLATFORM_WEB
-	windowWidth = canvasWidth * 3;
-	windowHeight = canvasHeight * 3;
-#endif
+	SetConfigFlags(FLAG_WINDOW_RESIZABLE);
 
 	InitWindow(windowWidth, windowHeight, "Snappy Witch");
+	SetWindowMinSize(canvasWidth, canvasHeight);
 	InitAudioDevice();
 	ToggleBorderlessWindowed();
 
 #ifndef PLATFORM_WEB
-	windowWidth = GetMonitorWidth(GetCurrentMonitor());
-	windowHeight = GetMonitorHeight(GetCurrentMonitor());
-
 	int framerateScale = GetMonitorRefreshRate(GetCurrentMonitor()) / 60;
 
 	int targetFramerate{ 60 * framerateScale };
@@ -57,8 +57,10 @@ int main()
 
 	gameStateManager.setGameState(std::make_unique<TitleScreenState>(canvasWidth, canvasHeight, gameStateManager, maxScore));
 
+	ResizeToFitWindow();
+
 #ifdef PLATFORM_WEB
-	emscripten_set_main_loop(UpdateDrawFrame, 60, 1);
+	emscripten_set_main_loop(UpdateDrawFrame, 0, 1);
 #else
 	while (WindowShouldClose() != true)
 	{
@@ -79,6 +81,17 @@ void UpdateDrawFrame()
 {
 	const float deltaTime{ GetFrameTime() };
 
+#ifdef PLATFORM_WEB
+	windowResizeCheckTimer += deltaTime;
+
+	if (windowResizeCheckTimer >= windowResizeCheckInterval)
+	{
+		ResizeToFitWindow();
+
+		windowResizeCheckTimer = 0;
+	}
+#endif	
+
 	UpdateMusicStream(backgroundMusic);
 
 	gameStateManager.update(deltaTime);
@@ -91,6 +104,21 @@ void UpdateDrawFrame()
 	EndTextureMode();
 
 	BeginDrawing();
-	DrawTexturePro(renderTexture.texture, Rectangle{ 0, 0, canvasWidth, -canvasHeight }, Rectangle{ 0, 0, static_cast<float>(windowWidth), static_cast<float>(windowHeight) }, Vector2{ 0, 0 }, 0.0f, WHITE);
+	DrawRectangle(0, 0, windowWidth, windowHeight, BLACK);
+	DrawTexturePro(renderTexture.texture, 
+		Rectangle{ 0, 0, canvasWidth, -canvasHeight }, 
+		Rectangle{ canvasPosition.x, canvasPosition.y, static_cast<float>(canvasWidth * canvasScale), static_cast<float>(canvasHeight * canvasScale) },
+		Vector2{ 0, 0 }, 0.0f, WHITE);
 	EndDrawing();
+}
+
+void ResizeToFitWindow()
+{
+	windowWidth = GetScreenWidth();
+	windowHeight = GetScreenHeight();
+
+	canvasScale = fminf((float)windowWidth / canvasWidth, (float)windowHeight / canvasHeight);
+
+	canvasPosition.x = (windowWidth - (canvasWidth * canvasScale)) * 0.5f;
+	canvasPosition.y = (windowHeight - (canvasHeight * canvasScale)) * 0.5f;
 }
