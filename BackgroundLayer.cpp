@@ -1,4 +1,5 @@
 #include "BackgroundLayer.h"
+#include <cmath>
 
 BackgroundLayer::BackgroundLayer(std::string texturePath, int scrollSpeed, int canvasWidth, int canvasHeight, int offset) : m_TexturePath(texturePath)
 {
@@ -7,7 +8,7 @@ BackgroundLayer::BackgroundLayer(std::string texturePath, int scrollSpeed, int c
 	this->canvasHeight = canvasHeight;
 	this->offset = offset;
 
-	numberOfSprites = canvasWidth + (texture.width - 1) / texture.width;
+	numberOfSprites = scrollSpeed == 0 ? 1 : std::ceil((static_cast<float>(canvasWidth) / static_cast<float>(texture.width)));
 }
 
 void BackgroundLayer::update(float deltaTime)
