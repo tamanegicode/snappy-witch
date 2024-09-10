@@ -17,8 +17,8 @@ Vector2 canvasPosition{ 0,0 };
 int windowWidth{ canvasWidth };
 int windowHeight{ canvasHeight };
 
-float windowResizeCheckInterval{ 3.0f };
-float windowResizeCheckTimer{ 3.0f };
+int lastWindowWidth{ windowWidth };
+int lastWindowHeight{ windowHeight };
 
 Music backgroundMusic{};
 RenderTexture renderTexture{};
@@ -82,13 +82,9 @@ void UpdateDrawFrame()
 	const float deltaTime{ GetFrameTime() };
 
 #ifdef PLATFORM_WEB
-	windowResizeCheckTimer += deltaTime;
-
-	if (windowResizeCheckTimer >= windowResizeCheckInterval)
+	if (GetScreenWidth() != lastWindowWidth || GetScreenHeight() != lastWindowHeight)
 	{
 		ResizeToFitWindow();
-
-		windowResizeCheckTimer = 0;
 	}
 #endif	
 
@@ -116,6 +112,9 @@ void ResizeToFitWindow()
 {
 	windowWidth = GetScreenWidth();
 	windowHeight = GetScreenHeight();
+
+	lastWindowWidth = windowWidth;
+	lastWindowHeight = windowHeight;
 
 	canvasScale = fminf((float)windowWidth / canvasWidth, (float)windowHeight / canvasHeight);
 
